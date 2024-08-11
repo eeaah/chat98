@@ -1,0 +1,11 @@
+.msg {
+	
+}
+
+.msg__txt {
+	color: black;
+	display: inline-block;
+	font-size: 1rem;
+	line-height: 1.25rem;
+	margin: .375rem;
+}

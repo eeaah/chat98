@@ -1,0 +1,20 @@
+.chat {
+	width: calc(100% - .5rem);
+	height: calc(100% - .5rem);
+
+	box-sizing: border-box;
+	border: none;
+	padding: 0.25rem;
+	background-color: white;
+	color: black;
+	box-shadow: inset -1px -1px #fff, inset 1px 1px grey,
+		inset -2px -2px #dfdfdf, inset 2px 2px #0a0a0a;
+	margin: 0.25rem;
+}
+
+.chat__wrapper {
+	overflow-y: auto;
+	box-sizing: border-box;
+	height: 100%;
+	
+}

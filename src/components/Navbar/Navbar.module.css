@@ -1,0 +1,63 @@
+.nav {
+	position: relative;
+	top: 0;
+	left: 0;
+	width: calc(100% - .5rem);
+	height: 1.75rem;
+	display: flex;
+	padding: 0.25rem;
+	flex-wrap: nowrap;
+	background: linear-gradient(to right, #4f46e5, #818cf8);
+}
+
+.nav__btn {
+	width: 1.5rem;
+	height: 1.5rem;
+	flex: none;
+	border-radius: 0;
+	padding: 0;
+	background-color: var(--eggshell);
+	color: black;
+	box-shadow: -0.5px -0.5px 0 0.5px #c0c0c0, 0 0 0 1px #808080,
+		-0.5px -0.5px 0 1.5px #ffffff, 0 0 0 2px #0a0a0a;
+	margin: .125rem;
+	cursor: pointer;
+}
+
+.nav__btn:active {
+	box-shadow: -0.5px -0.5px 0 0.5px #808080, 0 0 0 1px #c0c0c0,
+		-0.5px -0.5px 0 1.5px #0a0a0a, 0 0 0 2px #ffffff;
+}
+
+.nav__btn:disabled {
+	color: #9a9a9a;
+	text-shadow: 1px 1px 0 #eeeeee;
+}
+
+.nav__btn:focus {
+	outline: 1px dotted #000000;
+	outline-offset: -2px;
+}
+
+.nav__btn_left {
+	margin-left: auto;
+}
+
+.nav__btn_right {
+	margin-left: 0.375rem;
+}
+
+.nav__text {
+	font-size: 1.25rem;
+	line-height: 1.75rem;
+	margin-top: 0;
+	margin-bottom: 0;
+	color: white;
+	font-weight: bold;
+	flex: none;
+}
+
+.nav__btn__icon {
+	width: 100%;
+	height: 100%;
+}

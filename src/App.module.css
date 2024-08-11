@@ -1,0 +1,51 @@
+.page {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	box-sizing: border-box;
+	padding: .25rem;
+	background-color: var(--eggshell);
+}
+
+.grid {
+	display: grid;
+	height: calc(100% - 2.25rem);
+	width: 100%;
+	box-sizing: border-box;
+	grid-template-columns: minmax(5rem, 15rem) minmax(30rem, 1fr) minmax(5rem, 15rem);
+	grid-template-rows: 1fr 10rem;
+}
+
+.grid__chat {
+	grid-row: span 1 / span 1;
+	grid-column: span 1 / span 1;
+	grid-row-start: 1;
+	grid-column-start: 2;
+	background-color: var(--eggshell);
+}
+
+.grid__message_box {
+	grid-row: span 1 / span 1;
+	grid-column: span 1 / span 1;
+	grid-row-start: 2;
+	grid-column-start: 2;
+	background-color: var(--eggshell);
+}
+
+.btn {
+	border-radius: 0;
+	padding: .25rem;
+	background-color: var(--eggshell);
+	color: black;
+	box-shadow: -0.5px -0.5px 0 0.5px #c0c0c0, 0 0 0 1px #808080,
+		-0.5px -0.5px 0 1.5px #ffffff, 0 0 0 2px #0a0a0a;
+	margin: .125rem;
+	cursor: pointer;
+}
+
+.btn:active {
+	box-shadow: -0.5px -0.5px 0 0.5px #808080, 0 0 0 1px #c0c0c0,
+		-0.5px -0.5px 0 1.5px #0a0a0a, 0 0 0 2px #ffffff;
+}
