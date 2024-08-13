@@ -1,5 +1,5 @@
 .msg {
-	
+	display: flex;
 }
 
 .msg__txt {
