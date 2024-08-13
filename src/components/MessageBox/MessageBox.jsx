@@ -3,6 +3,7 @@ import { auth, db } from "../../firebase";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import KaomojiOption from "./KaomojiOption";
 import { kaomojiList } from "./kaomojiList.js";
+import { IconArrowsLeft } from "@tabler/icons-react";
 import styles from "./MessageBox.module.css";
 
 function MessageBox({ userDetails }) {
@@ -97,6 +98,7 @@ function MessageBox({ userDetails }) {
 					{currentKaomoji}
 				</button>
 			</div>
+			<IconArrowsLeft className={styles.arrow} />
 			<div className={`${styles.flex} ${styles.kaomoji_container}`}>
 				<button
 					id={0}

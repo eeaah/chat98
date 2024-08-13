@@ -21,6 +21,7 @@ function ChatBox() {
 			limit(50)
 		);
 		const unsubscribe = onSnapshot(q, (QuerySnapshot) => {
+			console.log(messages);
 			const fetchedMessages = [];
 			QuerySnapshot.forEach((doc) => {
 				const data = doc.data();
