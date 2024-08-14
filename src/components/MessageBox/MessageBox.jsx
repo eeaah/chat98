@@ -3,12 +3,22 @@ import { auth, db } from "../../firebase";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import KaomojiOption from "./KaomojiOption";
 import { kaomojiList } from "./kaomojiList.js";
-import { IconArrowsLeft } from "@tabler/icons-react";
+import {
+	IconArrowsLeft,
+	IconClearFormatting,
+	IconBold,
+	IconItalic,
+	IconStrikethrough,
+	IconUnderline,
+	IconHighlight,
+	IconTextColor,
+} from "@tabler/icons-react";
 import styles from "./MessageBox.module.css";
 
 function MessageBox({ userDetails }) {
 	const [message, setMessage] = useState("");
 	const [kaomojiTab, setKaomojiTab] = useState(0);
+	const [color, setColor] = useState("#000000")
 	const [currentKaomoji, setCurrentKaomoji] = useState([
 		"(´",
 		"•",
@@ -17,9 +27,35 @@ function MessageBox({ userDetails }) {
 		"`)",
 	]);
 	const [recentKaomoji, setRecentKaomoji] = useState([]);
+	const kaomojiButtons = [
+		{ id: 0, label: "Presets" },
+		{ id: 1, label: "Recent" },
+		{ id: 2, label: "Mouth" },
+		{ id: 3, label: "Eyes" },
+		{ id: 4, label: "Body" },
+	];
 
 	const handleKaomojiTab = (event) => {
 		setKaomojiTab(event.target.id);
+	};
+
+	const handleFormBtn = (val) => {
+		const area = document.getElementById("messageInput");
+		const start = area.selectionStart;
+		const end = area.selectionEnd;
+		const left = message.slice(0, start);
+		const mid = message.slice(start, end);
+		const right = message.slice(end);
+		if(val == "C" || val == "H")
+			setMessage(`${left}[${val}${color}]${mid}[/${val}]${right}`)
+		else if(val == "F")
+			console.log("clear format")
+		else
+			setMessage(`${left}[${val}]${mid}[/${val}]${right}`)
+	};
+
+	const handleColor = (event) => {
+		setColor(event.target.value);
 	};
 
 	const sendMessage = async () => {
@@ -80,17 +116,45 @@ function MessageBox({ userDetails }) {
 			<label htmlFor="messageInput" hidden>
 				Enter Message
 			</label>
-			<textarea
-				id="messageInput"
-				name="messageInput"
-				type="text"
-				maxlength="256"
-				value={message}
-				onChange={(e) => setMessage(e.target.value)}
-				className={styles.form__input}
-			></textarea>
+			<div className={`${styles.flex} ${styles.form__width}`}>
+				<div class={styles.flex_row}>
+					<button onClick={() => {handleFormBtn("F")}} className={styles.form__btn}>
+						<IconClearFormatting className={styles.svg} />
+					</button>
+					<button onClick={() => {handleFormBtn("B")}} className={`${styles.form__btn} ${styles.form__btn_margin}`}>
+						<IconBold className={styles.svg} />
+					</button>
+					<button onClick={() => {handleFormBtn("I")}} className={styles.form__btn}>
+						<IconItalic className={styles.svg} />
+					</button>
+					<button onClick={() => {handleFormBtn("U")}} className={styles.form__btn}>
+						<IconUnderline className={styles.svg} />
+					</button>
+					<button onClick={() => {handleFormBtn("S")}} className={styles.form__btn}>
+						<IconStrikethrough className={styles.svg} />
+					</button>
+					<button onClick={() => {handleFormBtn("H")}} className={`${styles.form__btn} ${styles.form__btn_margin}`}>
+						<IconHighlight className={styles.svg} />
+					</button>
+					<button onClick={() => {handleFormBtn("C")}} className={styles.form__btn}>
+						<IconTextColor className={styles.svg} />
+					</button>
+					<button className={styles.form__btn}>
+						<input type="color" className={styles.color_picker} value={color} onChange={handleColor} />
+					</button>
+				</div>
+				<textarea
+					id="messageInput"
+					name="messageInput"
+					type="text"
+					maxlength="256"
+					value={message}
+					onChange={(e) => setMessage(e.target.value)}
+					className={styles.form__input}
+				></textarea>
+			</div>
 			<div className={styles.flex}>
-				<button className={styles.btn} onClick={() => sendMessage()}>
+				<button onClick={() => sendMessage()} className={styles.btn} style={{marginTop: "2.625rem"}}>
 					Send
 				</button>
 				<button className={styles.btn}>Preview</button>
@@ -100,51 +164,20 @@ function MessageBox({ userDetails }) {
 			</div>
 			<IconArrowsLeft className={styles.arrow} />
 			<div className={`${styles.flex} ${styles.kaomoji_container}`}>
-				<button
-					id={0}
-					onClick={handleKaomojiTab}
-					className={`${styles.kaomoji_tab} ${
-						kaomojiTab == 0 ? styles.kaomoji_tab_active : ""
-					}`}
-				>
-					Presets
-				</button>
-				<button
-					id={1}
-					onClick={handleKaomojiTab}
-					className={`${styles.kaomoji_tab} ${
-						kaomojiTab == 1 ? styles.kaomoji_tab_active : ""
-					}`}
-				>
-					Recent
-				</button>
-				<button
-					id={2}
-					onClick={handleKaomojiTab}
-					className={`${styles.kaomoji_tab} ${
-						kaomojiTab == 2 ? styles.kaomoji_tab_active : ""
-					}`}
-				>
-					Mouth
-				</button>
-				<button
-					id={3}
-					onClick={handleKaomojiTab}
-					className={`${styles.kaomoji_tab} ${
-						kaomojiTab == 3 ? styles.kaomoji_tab_active : ""
-					}`}
-				>
-					Eyes
-				</button>
-				<button
-					id={4}
-					onClick={handleKaomojiTab}
-					className={`${styles.kaomoji_tab} ${
-						kaomojiTab == 4 ? styles.kaomoji_tab_active : ""
-					}`}
-				>
-					Body
-				</button>
+				{kaomojiButtons.map((button) => (
+					<button
+						key={button.id}
+						id={button.id}
+						onClick={handleKaomojiTab}
+						className={`${styles.kaomoji_tab} ${
+							kaomojiTab == button.id
+								? styles.kaomoji_tab_active
+								: ""
+						}`}
+					>
+						{button.label}
+					</button>
+				))}
 			</div>
 			<div className={styles.kaomoji_field}>
 				{kaomojiList[kaomojiTab]?.map((text, index) => (
