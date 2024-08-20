@@ -1,7 +1,6 @@
 .chat {
 	width: calc(100% - .5rem);
 	height: calc(100% - .5rem);
-
 	box-sizing: border-box;
 	border: none;
 	padding: 0.25rem;

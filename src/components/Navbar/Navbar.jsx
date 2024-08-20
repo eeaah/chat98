@@ -3,8 +3,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { IconX, IconUser, IconUserX, IconDots } from "@tabler/icons-react";
 import styles from "./Navbar.module.css";
 
-function Navbar({ toggleUserSettings }) {
-	const [user, setUser] = useAuthState(auth);
+function Navbar({ toggleUserSettings, user }) {
 	const signOut = () => {
 		auth.signOut();
 	};

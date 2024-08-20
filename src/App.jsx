@@ -34,6 +34,7 @@ function App() {
 				setUserSettingsModal(true);
 			} else {
 				const docSnap = await getDoc(doc(db, "users", uid));
+				console.log(docSnap.data);
 				const data = docSnap.data();
 				setUserDetails(data);
 			}
@@ -48,7 +49,7 @@ function App() {
 
 	return (
 		<div className={`${styles.page}`}>
-			<Navbar toggleUserSettings={toggleUserSettings} />
+			<Navbar toggleUserSettings={toggleUserSettings} user={user} />
 			<div className={styles.grid}>
 				<div className={styles.grid__chat}>
 					<ChatBox />

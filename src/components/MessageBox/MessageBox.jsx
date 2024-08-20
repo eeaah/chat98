@@ -117,7 +117,7 @@ function MessageBox({ userDetails }) {
 				Enter Message
 			</label>
 			<div className={`${styles.flex} ${styles.form__width}`}>
-				<div class={styles.flex_row}>
+				<div className={styles.flex_row}>
 					<button onClick={() => {handleFormBtn("F")}} className={styles.form__btn}>
 						<IconClearFormatting className={styles.svg} />
 					</button>
@@ -147,7 +147,7 @@ function MessageBox({ userDetails }) {
 					id="messageInput"
 					name="messageInput"
 					type="text"
-					maxlength="256"
+					maxLength="256"
 					value={message}
 					onChange={(e) => setMessage(e.target.value)}
 					className={styles.form__input}
@@ -184,6 +184,7 @@ function MessageBox({ userDetails }) {
 					<KaomojiOption
 						text={text}
 						index={index}
+						key={index}
 						tab={kaomojiTab}
 						sendKaomoji={sendKaomoji}
 					/>

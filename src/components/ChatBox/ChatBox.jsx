@@ -21,15 +21,13 @@ function ChatBox() {
 			limit(50)
 		);
 		const unsubscribe = onSnapshot(q, (QuerySnapshot) => {
-			console.log(messages);
 			const fetchedMessages = [];
 			QuerySnapshot.forEach((doc) => {
 				const data = doc.data();
 				fetchedMessages.push({ ...data, id: doc.id });
 			});
-			const sortedMessages = fetchedMessages.sort(
-				(a, b) => a.createdAt - b.createdAt
-			);
+			const sortedMessages = fetchedMessages.reverse();
+			console.log(sortedMessages);
 			setMessages(sortedMessages);
 		});
 		return () => unsubscribe;
