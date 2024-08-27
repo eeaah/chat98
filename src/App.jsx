@@ -8,6 +8,8 @@ import ChatBox from "./components/ChatBox/ChatBox";
 import MessageBox from "./components/MessageBox/MessageBox";
 import SignInDialog from "./components/SignInDialog/SignInDialog";
 import UserSettings from "./components/SignInDialog/UserSettings";
+import ServerList from "./components/ServerList/ServerList";
+import UserDetails from "./components/UserDetails/UserDetails";
 import styles from "./App.module.css";
 
 function App() {
@@ -48,31 +50,37 @@ function App() {
 	};
 
 	return (
-		<div className={`${styles.page}`}>
-			<Navbar toggleUserSettings={toggleUserSettings} user={user} />
-			<div className={styles.grid}>
-				<div className={styles.grid__chat}>
-					<ChatBox />
+		<div className={styles.page}>
+			<div className={`${styles.window}`}>
+				<Navbar toggleUserSettings={toggleUserSettings} user={user} />
+				<div className={styles.grid}>
+					<div className={styles.grid__chat}>
+						<ChatBox />
+					</div>
+					<div className={styles.grid__message_box}>
+						<MessageBox userDetails={userDetails} />
+					</div>
 				</div>
-				<div className={styles.grid__message_box}>
-					<MessageBox userDetails={userDetails} />
-				</div>
+				{!user ? (
+					<SignInDialog user={user} googleSignIn={googleSignIn} />
+				) : (
+					""
+				)}
+				{user && userDetails && userSettingsModal ? (
+					<UserSettings
+						user={user}
+						hideModal={toggleUserSettings}
+						userDetails={userDetails}
+						setUserDetails={setUserDetails}
+					/>
+				) : (
+					""
+				)}
 			</div>
-			{!user ? (
-				<SignInDialog user={user} googleSignIn={googleSignIn} />
-			) : (
-				""
-			)}
-			{user && userDetails && userSettingsModal ? (
-				<UserSettings
-					user={user}
-					hideModal={toggleUserSettings}
-					userDetails={userDetails}
-					setUserDetails={setUserDetails}
-				/>
-			) : (
-				""
-			)}
+			<div className={styles.right_side}>
+				<ServerList />
+				<UserDetails />
+			</div>
 		</div>
 	);
 }

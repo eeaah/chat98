@@ -118,6 +118,15 @@
 	line-height: 1.75rem;
 }
 
+.popup__txt {
+	color: black;
+	flex: 1; /* Allows the p element to take up the remaining space */
+	text-align: center; /* Centers the text horizontally within the p element */
+	font-size: 1rem;
+	line-height: 1.5rem;
+	text-align: center;
+}
+
 .win__icon_risk {
 	width: 4rem;
 }
@@ -184,4 +193,9 @@
 	color: white;
 	font-weight: bold;
 	flex: none;
+}
+
+.btn__icon {
+	width: 2rem;
+	height: 2rem;
 }

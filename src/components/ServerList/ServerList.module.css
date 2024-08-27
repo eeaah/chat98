@@ -1,0 +1,39 @@
+.servers_window { 
+	height: 100%;
+	box-sizing: border-box;
+	padding: .25rem;
+	background-color: var(--eggshell);
+	margin: .25rem 1rem 1rem .25rem;
+	box-shadow: -0.5px -0.5px 0 0.5px #ffffff, 0 0 0 1px #808080,
+		-0.5px -0.5px 0 1.5px #dfdfdf, 0 0 0 2px #0a0a0a;
+}
+
+.nav {
+	position: relative;
+	top: 0;
+	left: 0;
+	height: 1.75rem;
+	display: flex;
+	padding: 0.25rem;
+	flex-wrap: nowrap;
+	background: linear-gradient(to right, #4f46e5, #818cf8);
+}
+
+.nav__text {
+	font-size: 1.25rem;
+	line-height: 1.75rem;
+	margin-top: 0;
+	margin-bottom: 0;
+	color: white;
+	font-weight: bold;
+	flex: none;
+}
+
+.details_box {
+	padding: .25rem;
+}
+
+.txt_user {
+	color: black;
+	font-size: 1rem;
+}

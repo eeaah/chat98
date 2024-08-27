@@ -1,12 +1,30 @@
 .page {
+	background-color: var(--cottoncandy);
 	position: fixed;
 	top: 0;
 	left: 0;
 	width: 100vw;
 	height: 100vh;
+	display: flex;
+}
+
+.right_side {
+	display: flex;
+	flex-direction: column;
+	width: 20rem;
+	height: 100vh;
+}
+
+.window {
+	/* width: calc(100vw - 2rem); */
+	flex-grow: 1;
+	height: calc(100vh - 2rem);
 	box-sizing: border-box;
 	padding: .25rem;
 	background-color: var(--eggshell);
+	margin: 1rem;
+	box-shadow: -0.5px -0.5px 0 0.5px #ffffff, 0 0 0 1px #808080,
+		-0.5px -0.5px 0 1.5px #dfdfdf, 0 0 0 2px #0a0a0a;
 }
 
 .grid {
@@ -14,15 +32,12 @@
 	height: calc(100% - 2.25rem);
 	width: 100%;
 	box-sizing: border-box;
-	grid-template-columns: 5rem minmax(30rem, 1fr) 5rem;
 	grid-template-rows: 1fr 10rem;
 }
 
 .grid__chat {
 	grid-row: span 1 / span 1;
-	grid-column: span 1 / span 1;
 	grid-row-start: 1;
-	grid-column-start: 2;
 	background-color: var(--eggshell);
 	overflow-y: auto;
 }
@@ -31,8 +46,8 @@
 	grid-row: span 1 / span 1;
 	grid-column: span 1 / span 1;
 	grid-row-start: 2;
-	grid-column-start: 2;
 	background-color: var(--eggshell);
+	overflow-x: hidden;
 }
 
 .btn {

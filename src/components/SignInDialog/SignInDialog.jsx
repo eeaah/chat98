@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import { IconX } from "@tabler/icons-react";
 import IconRisk from "../../assets/risk-icon.svg";
+import IconGoogle from "../../assets/google-sign-in.svg";
 import styles from "./SignInDialog.module.css";
 
 function SignInDialog({ user, googleSignIn }) {
@@ -27,15 +28,17 @@ function SignInDialog({ user, googleSignIn }) {
 				</div>
 				<div className={styles.win__txt_box}>
 					<img src={IconRisk} className={styles.win__icon_risk} />
-					<p className={styles.win__txt}>
-						Please sign in with Google to continue using the app.
+					<p className={styles.popup__txt}>
+						Please be polite to other users when chatting. You must create an account or sign in to continue using the site.
 					</p>
 				</div>
 				<button
 					onClick={googleSignIn}
 					className={`${styles.btn} ${styles.btn_mid}`}
+					style={{display: "flex"}}
 				>
-					Sign in with Google
+					<img src={IconGoogle} className={styles.btn__icon} />
+					<p style={{margin: ".375rem"}}>Sign in with Google</p>
 				</button>
 			</div>
 		</dialog>
