@@ -10,7 +10,7 @@ import { db, auth } from "../../firebase";
 import Message from "../Message/Message";
 import styles from "./ChatBox.module.css";
 
-function ChatBox() {
+function ChatBox({ setDetails }) {
 	const chatWrapperRef = useRef(null);
 	const [messages, setMessages] = useState([]);
 
@@ -51,6 +51,8 @@ function ChatBox() {
 					<Message
 						key={message.id}
 						message={message}
+						setDetails={setDetails}
+
 					/>
 				))}
 			</div>

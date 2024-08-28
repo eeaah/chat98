@@ -13,6 +13,7 @@
 	flex-direction: column;
 	width: 20rem;
 	height: 100vh;
+	flex-grow: 0;
 }
 
 .window {
