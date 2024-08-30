@@ -78,11 +78,11 @@ function MessageBox({ userDetails }) {
 
 	const sendCurKaomoji = () => {
 		setMessage(message + currentKaomoji.join(""));
-		recent = recentKaomoji;
+		let recent = recentKaomoji;
 		if (recent.length > 16) {
-			recent = recend.slice(0, recent.length - 1);
+			recent = recent.slice(0, 15);
 		}
-		recent = [currentKaomoji, ...recent];
+		recent = [[...currentKaomoji], ...recent];
 		setRecentKaomoji(recent);
 	};
 
@@ -147,7 +147,7 @@ function MessageBox({ userDetails }) {
 					id="messageInput"
 					name="messageInput"
 					type="text"
-					maxLength="256"
+					maxLength="512"
 					value={message}
 					onChange={(e) => setMessage(e.target.value)}
 					className={styles.form__input}
@@ -180,7 +180,15 @@ function MessageBox({ userDetails }) {
 				))}
 			</div>
 			<div className={styles.kaomoji_field}>
-				{kaomojiList[kaomojiTab]?.map((text, index) => (
+				{kaomojiTab != 1 ? kaomojiList[kaomojiTab]?.map((text, index) => (
+					<KaomojiOption
+						text={text}
+						index={index}
+						key={index}
+						tab={kaomojiTab}
+						sendKaomoji={sendKaomoji}
+					/>
+				)) : recentKaomoji?.map((text, index) => (
 					<KaomojiOption
 						text={text}
 						index={index}

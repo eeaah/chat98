@@ -1,13 +1,49 @@
+import DOMPurify from 'dompurify';
 import styles from "./Message.module.css";
 
-const formatText = (text) => {
-	return text.replace(/\[B\](.*?)\[\/B\]/g, '<b>$1</b>')
-};
-
 function Message({ message, setDetails }) {
-	return (<div className={styles.msg}>
-		<p className={styles.msg__txt} style={{color: message.nameColor, cursor: "pointer"}} onClick={() => setDetails(message.uid)}> {"<" + message.name + ">"} </p>
-		<p className={styles.msg__txt}> {message.text} </p>
-	</div>);
+	const tagMap = {
+		B: "strong",
+		I: "em",
+		U: "u",
+		S: "s", // for strikethrough
+		H: "span", // Highlight will use a span with inline style
+		C: "span", // Highlight will use a span with inline style
+	};
+
+	const tagPattern = /\[([A-Z]+)(#[0-9A-Fa-f]{6})?\](.*?)\[\/\1\]/gi;
+
+	const formatText = (text) => {
+		const singleLine = text.replace(/(\r\n|\n|\r)/gm, "");
+		return singleLine.replace(tagPattern, (match, tag, colorCode, content) => {
+			const htmlTag = tagMap[tag.toUpperCase()];
+
+			if (htmlTag) {
+				if (tag.toUpperCase() === "H" && colorCode) {
+					return `<${htmlTag} style="background: ${colorCode}">${content}</${htmlTag}>`;
+				} else if (tag.toUpperCase() === "C" && colorCode) {
+					return `<${htmlTag} style="color: ${colorCode}">${content}</${htmlTag}>`;
+				}
+				return `<${htmlTag}>${content}</${htmlTag}>`;
+			}
+			return match
+		});
+	};
+
+	const parsedText = DOMPurify.sanitize(formatText(message.text));
+
+	return (
+		<div className={styles.msg}>
+			<p
+				className={styles.msg__txt}
+				style={{ color: message.nameColor, cursor: "pointer", flexShrink: 0 }}
+				onClick={() => setDetails(message.uid)}
+			>
+				{" "}
+				{"<" + message.name + ">"}{" "}
+			</p>
+			<div dangerouslySetInnerHTML={{__html: parsedText}} className={styles.msg__txt} />
+		</div>
+	);
 }
 export default Message;
