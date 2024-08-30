@@ -23,6 +23,7 @@ function SignInDialog({ hideModal, user, userDetails, setUserDetails }) {
 		const hexColorRegex = /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/;
 		if (!hexColorRegex.test(color)) return;
 		const data = {
+			...userDetails,
 			name: name,
 			aboutMe: aboutMe,
 			nameColor: color,

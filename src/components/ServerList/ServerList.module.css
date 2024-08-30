@@ -36,4 +36,13 @@
 .txt_user {
 	color: black;
 	font-size: 1rem;
+	margin: .25rem 0;
+	line-height: 1.25rem;
+}
+
+.txt_section {
+	color: rgb(75, 75, 75);
+	font-size: .75rem;
+	margin: .75rem 0 0 0;
+	font-weight: bold;
 }

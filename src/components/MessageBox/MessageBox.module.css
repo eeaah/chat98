@@ -113,6 +113,7 @@
 	box-sizing: border-box;
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(6rem, 1fr));
+	flex-shrink: 0.75;
 }
 
 .kaomoji_tab {
@@ -128,6 +129,7 @@
 	color: black;
 	position: relative;
 	z-index: 1;
+	flex-shrink: 0;
 }
 
 .kaomoji_tab:active, .kaomoji_tab_active {
@@ -161,4 +163,5 @@
 	margin-top: 7.75rem;
 	color: rgb(29, 29, 29);
 	width: 3rem;
+	flex-shrink: 0;
 }
