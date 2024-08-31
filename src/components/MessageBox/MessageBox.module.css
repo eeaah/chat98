@@ -112,8 +112,12 @@
 	overflow-y: auto;
 	box-sizing: border-box;
 	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(6rem, 1fr));
+	grid-template-columns: repeat(auto-fit, minmax(6.125rem, 1fr));
 	flex-shrink: 0.75;
+}
+
+.kaomoji_field_recent {
+	grid-template-columns: repeat(auto-fit, 6.125rem);
 }
 
 .kaomoji_tab {
@@ -160,7 +164,7 @@
 }
 
 .arrow {
-	margin-top: 7.75rem;
+	margin-top: 7.875rem;
 	color: rgb(29, 29, 29);
 	width: 3rem;
 	flex-shrink: 0;

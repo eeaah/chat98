@@ -1,23 +1,22 @@
 import DOMPurify from 'dompurify';
 import styles from "./Message.module.css";
 
+const tagMap = {
+	B: "strong",
+	I: "em",
+	U: "u",
+	S: "s",
+	H: "span",
+	C: "span",
+};
+
+const tagPattern = /\[([A-Z]+)(#[0-9A-Fa-f]{6})?\](.*?)\[\/\1\]/gi;
+
 function Message({ message, setDetails }) {
-	const tagMap = {
-		B: "strong",
-		I: "em",
-		U: "u",
-		S: "s", // for strikethrough
-		H: "span", // Highlight will use a span with inline style
-		C: "span", // Highlight will use a span with inline style
-	};
-
-	const tagPattern = /\[([A-Z]+)(#[0-9A-Fa-f]{6})?\](.*?)\[\/\1\]/gi;
-
 	const formatText = (text) => {
 		const singleLine = text.replace(/(\r\n|\n|\r)/gm, "");
 		return singleLine.replace(tagPattern, (match, tag, colorCode, content) => {
 			const htmlTag = tagMap[tag.toUpperCase()];
-
 			if (htmlTag) {
 				if (tag.toUpperCase() === "H" && colorCode) {
 					return `<${htmlTag} style="background: ${colorCode}">${content}</${htmlTag}>`;

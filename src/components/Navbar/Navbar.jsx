@@ -1,9 +1,8 @@
 import { auth } from "../../firebase";
-import { useAuthState } from "react-firebase-hooks/auth";
 import { IconX, IconUser, IconUserX, IconDots } from "@tabler/icons-react";
 import styles from "./Navbar.module.css";
 
-function Navbar({ toggleUserSettings, user }) {
+function Navbar({ toggleUserSettings, togglePreferences, user }) {
 	const signOut = () => {
 		auth.signOut();
 	};
@@ -11,7 +10,7 @@ function Navbar({ toggleUserSettings, user }) {
 	return (
 		<div className={styles.nav}>
 			<p className={styles.nav__text}>General - Messenger</p>
-			<button className={`${styles.nav__btn} ${styles.nav__btn_left}`}>
+			<button className={`${styles.nav__btn} ${styles.nav__btn_left}`} onClick={togglePreferences}>
 				<IconDots className={styles.nav__btn__icon} />
 			</button>
 			<button className={`${styles.nav__btn}`}>

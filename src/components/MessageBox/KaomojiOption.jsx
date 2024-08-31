@@ -9,6 +9,8 @@ function KaomojiOption({ text, index, tab, sendKaomoji }) {
 		display = text[0] + "     " + text[1];
 	} else if(tab == 0 || tab == 2){
 		display = text;
+	} else {
+		display = text;
 	}
 
 	return (

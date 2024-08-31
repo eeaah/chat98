@@ -7,6 +7,7 @@ import Navbar from "./components/Navbar/Navbar";
 import ChatBox from "./components/ChatBox/ChatBox";
 import MessageBox from "./components/MessageBox/MessageBox";
 import SignInDialog from "./components/SignInDialog/SignInDialog";
+import PreferencesDialog from "./components/SignInDialog/PreferencesDialog";
 import UserSettings from "./components/SignInDialog/UserSettings";
 import ServerList from "./components/ServerList/ServerList";
 import UserDetails from "./components/UserDetails/UserDetails";
@@ -16,6 +17,7 @@ function App() {
 	const [user] = useAuthState(auth);
 	const [userDetails, setUserDetails] = useState(null);
 	const [userSettingsModal, setUserSettingsModal] = useState(false);
+	const [preferencesModal, setPreferencesModal] = useState(false);
 	const [viewDetails, setViewDetails] = useState(null);
 
 	const getDetails = async () => {
@@ -23,13 +25,11 @@ function App() {
 			const docRef = doc(db, "users", user.uid);
 			const userDoc = await getDoc(docRef);
 			if (userDoc.exists()) {
-				console.log(userDoc.data);
 				const data = userDoc.data();
 				setUserDetails(data);
 			} else {
 				const today = new Date();
 				const formattedDate = today.toISOString();
-				console.log(formattedDate);
 				const data = {
 					name: user.displayName,
 					aboutMe: "",
@@ -47,10 +47,12 @@ function App() {
 	};
 
 	useEffect(() => {
-		if (user && userDetails == null)
-			getDetails();
-		else
+		if (user) {
+			if (userDetails === null)
+				getDetails();
+		} else {
 			setUserDetails(null);
+		}
 	}, [user]);
 
 	const handleViewDetails = async (uid) => {
@@ -75,10 +77,14 @@ function App() {
 		setUserSettingsModal(!userSettingsModal);
 	};
 
+	const togglePreferences = () => {
+		setPreferencesModal(!preferencesModal);
+	};
+
 	return (
 		<div className={styles.page}>
 			<div className={`${styles.window}`}>
-				<Navbar toggleUserSettings={toggleUserSettings} user={user} />
+				<Navbar toggleUserSettings={toggleUserSettings} togglePreferences={togglePreferences} user={user} />
 				<div className={styles.grid}>
 					<div className={styles.grid__chat}>
 						<ChatBox setDetails={handleViewDetails} />
@@ -96,6 +102,16 @@ function App() {
 					<UserSettings
 						user={user}
 						hideModal={toggleUserSettings}
+						userDetails={userDetails}
+						setUserDetails={setUserDetails}
+					/>
+				) : (
+					""
+				)}
+				{user && userDetails && preferencesModal ? (
+					<PreferencesDialog
+						user={user}
+						hideModal={togglePreferences}
 						userDetails={userDetails}
 						setUserDetails={setUserDetails}
 					/>

@@ -11,7 +11,7 @@
 .right_side {
 	display: flex;
 	flex-direction: column;
-	width: 20rem;
+	width: 22rem;
 	height: 100vh;
 	flex-grow: 0;
 	flex-shrink: 0.75;

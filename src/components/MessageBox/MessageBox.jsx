@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { auth, db } from "../../firebase";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { LRUCache } from "lru-cache";
 import KaomojiOption from "./KaomojiOption";
 import { kaomojiList } from "./kaomojiList.js";
 import {
@@ -15,28 +16,31 @@ import {
 } from "@tabler/icons-react";
 import styles from "./MessageBox.module.css";
 
+const cache = new LRUCache({ max: 20 });
+
+const kaomojiButtons = [
+	{ id: 0, label: "Presets" },
+	{ id: 1, label: "Recent" },
+	{ id: 2, label: "Mouth" },
+	{ id: 3, label: "Eyes" },
+	{ id: 4, label: "Body" },
+];
+
 function MessageBox({ userDetails }) {
 	const [message, setMessage] = useState("");
 	const [kaomojiTab, setKaomojiTab] = useState(0);
-	const [color, setColor] = useState("#000000")
+	const [color, setColor] = useState("#000000");
 	const [currentKaomoji, setCurrentKaomoji] = useState([
-		"(´",
-		"•",
-		"ω",
-		"•",
-		"`)",
+		"(",
+		"＾",
+		"▽",
+		"＾",
+		")",
 	]);
-	const [recentKaomoji, setRecentKaomoji] = useState([]);
-	const kaomojiButtons = [
-		{ id: 0, label: "Presets" },
-		{ id: 1, label: "Recent" },
-		{ id: 2, label: "Mouth" },
-		{ id: 3, label: "Eyes" },
-		{ id: 4, label: "Body" },
-	];
+	const [recentKaomoji, setRecentKaomoji] = useState([""]);
 
 	const handleKaomojiTab = (event) => {
-		setKaomojiTab(event.target.id);
+		setKaomojiTab(Number(event.target.id));
 	};
 
 	const handleFormBtn = (val) => {
@@ -46,12 +50,10 @@ function MessageBox({ userDetails }) {
 		const left = message.slice(0, start);
 		const mid = message.slice(start, end);
 		const right = message.slice(end);
-		if(val == "C" || val == "H")
-			setMessage(`${left}[${val}${color}]${mid}[/${val}]${right}`)
-		else if(val == "F")
-			console.log("clear format")
-		else
-			setMessage(`${left}[${val}]${mid}[/${val}]${right}`)
+		if (val == "C" || val == "H")
+			setMessage(`${left}[${val}${color}]${mid}[/${val}]${right}`);
+		else if (val == "F") console.log("clear format");
+		else setMessage(`${left}[${val}]${mid}[/${val}]${right}`);
 	};
 
 	const handleColor = (event) => {
@@ -77,37 +79,49 @@ function MessageBox({ userDetails }) {
 	};
 
 	const sendCurKaomoji = () => {
-		setMessage(message + currentKaomoji.join(""));
-		let recent = recentKaomoji;
-		if (recent.length > 16) {
-			recent = recent.slice(0, 15);
-		}
-		recent = [[...currentKaomoji], ...recent];
-		setRecentKaomoji(recent);
+		const cur = currentKaomoji.join("");
+		setMessage(message + cur);
+		handleRecent(cur);
+	};
+
+	const handleRecent = (cur) => {
+		cache.set(cur, cur);
+		setRecentKaomoji([...cache.keys()]);
 	};
 
 	const sendKaomoji = (text) => {
-		if (kaomojiTab == 0) {
-			setMessage(message + text);
-		} else if (kaomojiTab == 2) {
-			const newFace = [
-				...currentKaomoji.slice(0, 2),
-				text,
-				...currentKaomoji.slice(3),
-			];
-			setCurrentKaomoji(newFace);
-		} else if (kaomojiTab == 3) {
-			const newFace = [
-				...currentKaomoji.slice(0, 1),
-				text[0],
-				...currentKaomoji.slice(2, 3),
-				text[1],
-				...currentKaomoji.slice(4),
-			];
-			setCurrentKaomoji(newFace);
-		} else if (kaomojiTab == 4) {
-			const newFace = [text[0], ...currentKaomoji.slice(1, 4), text[1]];
-			setCurrentKaomoji(newFace);
+		let newFace = null;
+		switch (kaomojiTab) {
+			case 0:
+				setMessage(message + text);
+				handleRecent(text);
+				break;
+			case 1:
+				setMessage(message + text);
+				handleRecent(text);
+				break;
+			case 2:
+				newFace = [
+					...currentKaomoji.slice(0, 2),
+					text,
+					...currentKaomoji.slice(3),
+				];
+				setCurrentKaomoji(newFace);
+				break;
+			case 3:
+				newFace = [
+					...currentKaomoji.slice(0, 1),
+					text[0],
+					...currentKaomoji.slice(2, 3),
+					text[1],
+					...currentKaomoji.slice(4),
+				];
+				setCurrentKaomoji(newFace);
+				break;
+			case 4:
+				newFace = [text[0], ...currentKaomoji.slice(1, 4), text[1]];
+				setCurrentKaomoji(newFace);
+				break;
 		}
 	};
 
@@ -118,29 +132,69 @@ function MessageBox({ userDetails }) {
 			</label>
 			<div className={`${styles.flex} ${styles.form__width}`}>
 				<div className={styles.flex_row}>
-					<button onClick={() => {handleFormBtn("F")}} className={styles.form__btn}>
+					<button
+						onClick={() => {
+							handleFormBtn("F");
+						}}
+						className={styles.form__btn}
+					>
 						<IconClearFormatting className={styles.svg} />
 					</button>
-					<button onClick={() => {handleFormBtn("B")}} className={`${styles.form__btn} ${styles.form__btn_margin}`}>
+					<button
+						onClick={() => {
+							handleFormBtn("B");
+						}}
+						className={`${styles.form__btn} ${styles.form__btn_margin}`}
+					>
 						<IconBold className={styles.svg} />
 					</button>
-					<button onClick={() => {handleFormBtn("I")}} className={styles.form__btn}>
+					<button
+						onClick={() => {
+							handleFormBtn("I");
+						}}
+						className={styles.form__btn}
+					>
 						<IconItalic className={styles.svg} />
 					</button>
-					<button onClick={() => {handleFormBtn("U")}} className={styles.form__btn}>
+					<button
+						onClick={() => {
+							handleFormBtn("U");
+						}}
+						className={styles.form__btn}
+					>
 						<IconUnderline className={styles.svg} />
 					</button>
-					<button onClick={() => {handleFormBtn("S")}} className={styles.form__btn}>
+					<button
+						onClick={() => {
+							handleFormBtn("S");
+						}}
+						className={styles.form__btn}
+					>
 						<IconStrikethrough className={styles.svg} />
 					</button>
-					<button onClick={() => {handleFormBtn("H")}} className={`${styles.form__btn} ${styles.form__btn_margin}`}>
+					<button
+						onClick={() => {
+							handleFormBtn("H");
+						}}
+						className={`${styles.form__btn} ${styles.form__btn_margin}`}
+					>
 						<IconHighlight className={styles.svg} />
 					</button>
-					<button onClick={() => {handleFormBtn("C")}} className={styles.form__btn}>
+					<button
+						onClick={() => {
+							handleFormBtn("C");
+						}}
+						className={styles.form__btn}
+					>
 						<IconTextColor className={styles.svg} />
 					</button>
 					<button className={styles.form__btn}>
-						<input type="color" className={styles.color_picker} value={color} onChange={handleColor} />
+						<input
+							type="color"
+							className={styles.color_picker}
+							value={color}
+							onChange={handleColor}
+						/>
 					</button>
 				</div>
 				<textarea
@@ -154,7 +208,11 @@ function MessageBox({ userDetails }) {
 				></textarea>
 			</div>
 			<div className={styles.flex}>
-				<button onClick={() => sendMessage()} className={styles.btn} style={{marginTop: "2.625rem"}}>
+				<button
+					onClick={() => sendMessage()}
+					className={styles.btn}
+					style={{ marginTop: "2.625rem" }}
+				>
 					Send
 				</button>
 				<button className={styles.btn}>Preview</button>
@@ -170,7 +228,7 @@ function MessageBox({ userDetails }) {
 						id={button.id}
 						onClick={handleKaomojiTab}
 						className={`${styles.kaomoji_tab} ${
-							kaomojiTab == button.id
+							kaomojiTab === button.id
 								? styles.kaomoji_tab_active
 								: ""
 						}`}
@@ -179,24 +237,26 @@ function MessageBox({ userDetails }) {
 					</button>
 				))}
 			</div>
-			<div className={styles.kaomoji_field}>
-				{kaomojiTab != 1 ? kaomojiList[kaomojiTab]?.map((text, index) => (
-					<KaomojiOption
-						text={text}
-						index={index}
-						key={index}
-						tab={kaomojiTab}
-						sendKaomoji={sendKaomoji}
-					/>
-				)) : recentKaomoji?.map((text, index) => (
-					<KaomojiOption
-						text={text}
-						index={index}
-						key={index}
-						tab={kaomojiTab}
-						sendKaomoji={sendKaomoji}
-					/>
-				))}
+			<div className={`${styles.kaomoji_field} ${kaomojiTab === 1 ? styles.kaomoji_field_recent : ''}`}>
+				{kaomojiTab !== 1
+					? kaomojiList[kaomojiTab]?.map((text, index) => (
+							<KaomojiOption
+								text={text}
+								index={index}
+								key={index}
+								tab={kaomojiTab}
+								sendKaomoji={sendKaomoji}
+							/>
+					  ))
+					: recentKaomoji?.map((text, index) => (
+							<KaomojiOption
+								text={text}
+								index={index}
+								key={index}
+								tab={kaomojiTab}
+								sendKaomoji={sendKaomoji}
+							/>
+					  ))}
 			</div>
 		</div>
 	);
