@@ -1,5 +1,5 @@
 .page {
-	background-color: var(--cottoncandy);
+	background-color: var(--desktop-bg);
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -23,7 +23,7 @@
 	height: calc(100vh - 2rem);
 	box-sizing: border-box;
 	padding: .25rem;
-	background-color: var(--eggshell);
+	background-color: var(--window-bg);
 	margin: 1rem;
 	box-shadow: -0.5px -0.5px 0 0.5px #ffffff, 0 0 0 1px #808080,
 		-0.5px -0.5px 0 1.5px #dfdfdf, 0 0 0 2px #0a0a0a;
@@ -40,7 +40,7 @@
 .grid__chat {
 	grid-row: span 1 / span 1;
 	grid-row-start: 1;
-	background-color: var(--eggshell);
+	background-color: var(--window-bg);
 	overflow-y: auto;
 }
 
@@ -48,15 +48,15 @@
 	grid-row: span 1 / span 1;
 	grid-column: span 1 / span 1;
 	grid-row-start: 2;
-	background-color: var(--eggshell);
+	background-color: var(--window-bg);
 	overflow-x: hidden;
 }
 
 .btn {
 	border-radius: 0;
 	padding: .25rem;
-	background-color: var(--eggshell);
-	color: black;
+	background-color: var(--window-bg);
+	color: var(--button-text);
 	box-shadow: -0.5px -0.5px 0 0.5px #c0c0c0, 0 0 0 1px #808080,
 		-0.5px -0.5px 0 1.5px #ffffff, 0 0 0 2px #0a0a0a;
 	margin: .125rem;

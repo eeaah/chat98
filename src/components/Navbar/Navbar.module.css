@@ -7,7 +7,7 @@
 	display: flex;
 	padding: 0.25rem;
 	flex-wrap: nowrap;
-	background: linear-gradient(to right, #4f46e5, #818cf8);
+	background: linear-gradient(to right, var(--accent-1), var(--accent-2));
 }
 
 .nav__btn {
@@ -17,7 +17,7 @@
 	border-radius: 0;
 	padding: 0;
 	background-color: var(--eggshell);
-	color: black;
+	color: var(--button-text);
 	box-shadow: -0.5px -0.5px 0 0.5px #c0c0c0, 0 0 0 1px #808080,
 		-0.5px -0.5px 0 1.5px #ffffff, 0 0 0 2px #0a0a0a;
 	margin: .125rem;
@@ -27,11 +27,6 @@
 .nav__btn:active {
 	box-shadow: -0.5px -0.5px 0 0.5px #808080, 0 0 0 1px #c0c0c0,
 		-0.5px -0.5px 0 1.5px #0a0a0a, 0 0 0 2px #ffffff;
-}
-
-.nav__btn:disabled {
-	color: #9a9a9a;
-	text-shadow: 1px 1px 0 #eeeeee;
 }
 
 .nav__btn:focus {
@@ -52,7 +47,7 @@
 	line-height: 1.75rem;
 	margin-top: 0;
 	margin-bottom: 0;
-	color: white;
+	color: var(--header-text);
 	font-weight: bold;
 	flex: none;
 }

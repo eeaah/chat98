@@ -4,8 +4,8 @@
 	box-sizing: border-box;
 	border: none;
 	padding: 0.25rem;
-	background-color: white;
-	color: black;
+	background-color: var(--field-bg);
+	color: var(--text);
 	box-shadow: inset -1px -1px #fff, inset 1px 1px grey,
 		inset -2px -2px #dfdfdf, inset 2px 2px #0a0a0a;
 	margin: 0.25rem;

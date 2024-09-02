@@ -1,10 +1,18 @@
 .modal {
 	box-shadow: -0.5px -0.5px 0 0.5px #ffffff, 0 0 0 1px #808080,
 		-0.5px -0.5px 0 1.5px #dfdfdf, 0 0 0 2px #0a0a0a;
-	background-color: var(--eggshell);
+	background-color: var(--window-bg);
 	padding: 0.25rem;
 	border: none;
 	width: 30rem;
+}
+
+.modal__preferences {
+	box-shadow: -0.5px -0.5px 0 0.5px #ffffff, 0 0 0 1px #808080,
+		-0.5px -0.5px 0 1.5px #dfdfdf, 0 0 0 2px #0a0a0a;
+	background-color: var(--window-bg);
+	padding: 0.25rem;
+	border: none;
 }
 
 .modal_user_settings {
@@ -22,6 +30,10 @@
 	display: none;
 }
 
+.modal__preferences::backdrop {
+	display: none;
+}
+
 .modal__flex {
 	height: 100%;
 	display: flex;
@@ -31,8 +43,8 @@
 .btn {
 	border-radius: 0;
 	padding: 0.25rem;
-	background-color: var(--eggshell);
-	color: black;
+	background-color: var(--window-bg);
+	color: var(--button-text);
 	box-shadow: -0.5px -0.5px 0 0.5px #c0c0c0, 0 0 0 1px #808080,
 		-0.5px -0.5px 0 1.5px #ffffff, 0 0 0 2px #0a0a0a;
 	margin: 0.125rem;
@@ -72,8 +84,8 @@
 .settings__input {
 	border: none;
 	padding: 0.25rem;
-	background-color: var(--eggshell);
-	color: black;
+	background-color: var(--window-bg);
+	color: var(--text);
 	box-shadow: inset -1px -1px #fff, inset 1px 1px grey,
 		inset -2px -2px #dfdfdf, inset 2px 2px #0a0a0a;
 	margin: 0.125rem;
@@ -110,8 +122,15 @@
 	row-gap: .5rem;
 }
 
+.theme__grid {
+	display: grid;
+	grid-template-columns: 11rem 1fr 1rem;
+	margin: 1rem;
+	row-gap: .5rem;
+}
+
 .win__txt {
-	color: black;
+	color: var(--text);
 	margin-right: auto;
 	margin-top: 0;
 	margin-bottom: 0;
@@ -121,7 +140,7 @@
 }
 
 .popup__txt {
-	color: black;
+	color: var(--text);
 	flex: 1; /* Allows the p element to take up the remaining space */
 	text-align: center; /* Centers the text horizontally within the p element */
 	font-size: 1rem;
@@ -141,7 +160,7 @@
 	display: flex;
 	padding: 0.25rem;
 	flex-wrap: nowrap;
-	background: linear-gradient(to right, #4f46e5, #818cf8);
+	background: linear-gradient(to right, var(--accent-1), var(--accent-2));
 }
 
 .nav__btn {
@@ -150,8 +169,8 @@
 	flex: none;
 	border-radius: 0;
 	padding: 0;
-	background-color: var(--eggshell);
-	color: black;
+	background-color: var(--window-bg);
+	color: var(--button-text);
 	box-shadow: -0.5px -0.5px 0 0.5px #c0c0c0, 0 0 0 1px #808080,
 		-0.5px -0.5px 0 1.5px #ffffff, 0 0 0 2px #0a0a0a;
 	margin: 0.125rem;
@@ -161,11 +180,6 @@
 .nav__btn:active {
 	box-shadow: -0.5px -0.5px 0 0.5px #808080, 0 0 0 1px #c0c0c0,
 		-0.5px -0.5px 0 1.5px #0a0a0a, 0 0 0 2px #ffffff;
-}
-
-.nav__btn:disabled {
-	color: #9a9a9a;
-	text-shadow: 1px 1px 0 #eeeeee;
 }
 
 .nav__btn:focus {
@@ -192,7 +206,7 @@
 	line-height: 1.75rem;
 	margin-top: 0;
 	margin-bottom: 0;
-	color: white;
+	color: var(--header-text);
 	font-weight: bold;
 	flex: none;
 }
@@ -200,4 +214,27 @@
 .btn__icon {
 	width: 2rem;
 	height: 2rem;
+}
+
+.form__btn {
+	width: 1.25rem;
+	height: 1.25rem;
+	flex: none;
+	border-radius: 0;
+	padding: 0;
+	background-color: var(--window-bg);
+	color: var(--button-text);
+	box-shadow: -0.5px -0.5px 0 0.5px #c0c0c0, 0 0 0 1px #808080,
+		-0.5px -0.5px 0 1.5px #ffffff, 0 0 0 2px #0a0a0a;
+	margin: .25rem;
+	cursor: pointer;
+}
+
+.color_picker {
+	height: 100%;
+	width: 100%;
+	border: none;
+	padding: 0;
+	margin: 0;
+	background-color: var(--window-bg);
 }

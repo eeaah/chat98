@@ -13,6 +13,18 @@ import ServerList from "./components/ServerList/ServerList";
 import UserDetails from "./components/UserDetails/UserDetails";
 import styles from "./App.module.css";
 
+const defaultTheme = {
+	"desktop-bg": "#FFB0E6",
+	"window-bg": "#E1D9CC",
+	"text": "#000000",
+	"field-bg": "#ffffff",
+	"button-text": "#000000",
+	"indicator-accent": "#3a3a3a",
+	"accent-1": "#4f46e5",
+	"accent-2": "#818cf8",
+	"header-text": "#ffffff",
+};
+
 function App() {
 	const [user] = useAuthState(auth);
 	const [userDetails, setUserDetails] = useState(null);
@@ -36,6 +48,7 @@ function App() {
 					nameColor: "#000000",
 					joinDate: formattedDate,
 					uid: user.uid,
+					theme: JSON.stringify(defaultTheme),
 				};
 				setUserDetails(data);
 				await setDoc(docRef, data);
@@ -48,12 +61,16 @@ function App() {
 
 	useEffect(() => {
 		if (user) {
-			if (userDetails === null)
-				getDetails();
+			if (userDetails === null) getDetails();
 		} else {
 			setUserDetails(null);
 		}
 	}, [user]);
+
+	Object.keys(defaultTheme).forEach((key) => {
+		const cssKey = '--' + key
+		document.documentElement.style.setProperty(cssKey, defaultTheme[key]);
+	});
 
 	const handleViewDetails = async (uid) => {
 		try {
@@ -84,7 +101,11 @@ function App() {
 	return (
 		<div className={styles.page}>
 			<div className={`${styles.window}`}>
-				<Navbar toggleUserSettings={toggleUserSettings} togglePreferences={togglePreferences} user={user} />
+				<Navbar
+					toggleUserSettings={toggleUserSettings}
+					togglePreferences={togglePreferences}
+					user={user}
+				/>
 				<div className={styles.grid}>
 					<div className={styles.grid__chat}>
 						<ChatBox setDetails={handleViewDetails} />
