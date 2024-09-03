@@ -1,3 +1,4 @@
+import ThemeDisplay from "../SignInDialog/ThemeDisplay";
 import styles from "../ServerList/ServerList.module.css";
 
 function UserDetails({ viewDetails }) {
@@ -15,6 +16,7 @@ function UserDetails({ viewDetails }) {
 				</p>
 				<p className={styles.txt_section}>Join Date</p>
 				<p className={styles.txt_user}>{viewDetails?.joinDate?.split('T')[0]}</p>
+				{viewDetails ? <ThemeDisplay theme={JSON.parse(viewDetails.theme)} /> : ""}
 			</div>
 		</div>
 	);

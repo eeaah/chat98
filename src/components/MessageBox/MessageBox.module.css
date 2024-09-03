@@ -31,7 +31,7 @@
 	flex: none;
 	border-radius: 0;
 	padding: 0;
-	background-color: var(--window-bg);
+	background-color: var(--main-window-bg);
 	color: var(--button-text);
 	box-shadow: -0.5px -0.5px 0 0.5px #c0c0c0, 0 0 0 1px #808080,
 		-0.5px -0.5px 0 1.5px #ffffff, 0 0 0 2px #0a0a0a;
@@ -52,7 +52,7 @@
 	width: 6.5rem;
 	border-radius: 0;
 	padding: 0.25rem 0;
-	background-color: var(--window-bg);
+	background-color: var(--main-window-bg);
 	color: var(--button-text);
 	box-shadow: -0.5px -0.5px 0 0.5px #c0c0c0, 0 0 0 1px #808080,
 		-0.5px -0.5px 0 1.5px #ffffff, 0 0 0 2px #0a0a0a;
@@ -72,7 +72,7 @@
 	border: none;
 	padding: 0;
 	margin: 0;
-	background-color: var(--window-bg);
+	background-color: var(--main-window-bg);
 }
 
 .btn:active {
@@ -101,7 +101,7 @@
 	width: 40rem;
 	box-sizing: border-box;
 	border: none;
-	background-color: var(--window-bg);
+	background-color: var(--main-window-bg);
 	color: var(--button-text);
 	box-shadow: -0.5px -0.5px 0 0.5px #ffffff, 0 0 0 1px #808080,
 		-0.5px -0.5px 0 1.5px #dfdfdf, 0 0 0 2px #0a0a0a;
@@ -130,7 +130,7 @@
 	font-size: 1rem;
 	line-height: 1.125rem;
 	width: 4.5rem;
-	background-color: var(--window-bg);
+	background-color: var(--main-window-bg);
 	color: var(--button-text);
 	position: relative;
 	z-index: 1;
@@ -150,7 +150,7 @@
 	border-radius: 0;
 	height: calc(100% + 4px);
 	width: 2px; /* Adjust based on how much you want to cover */
-	background-color: var(--window-bg);
+	background-color: var(--main-window-bg);
 	z-index: 2;
 }
 
@@ -166,7 +166,7 @@
 
 .arrow {
 	margin-top: 7.875rem;
-	color: rgb(29, 29, 29);
+	color: var(--indicator-accent);
 	width: 3rem;
 	flex-shrink: 0;
 }

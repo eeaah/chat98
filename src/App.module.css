@@ -23,7 +23,7 @@
 	height: calc(100vh - 2rem);
 	box-sizing: border-box;
 	padding: .25rem;
-	background-color: var(--window-bg);
+	background-color: var(--main-window-bg);
 	margin: 1rem;
 	box-shadow: -0.5px -0.5px 0 0.5px #ffffff, 0 0 0 1px #808080,
 		-0.5px -0.5px 0 1.5px #dfdfdf, 0 0 0 2px #0a0a0a;
@@ -40,7 +40,7 @@
 .grid__chat {
 	grid-row: span 1 / span 1;
 	grid-row-start: 1;
-	background-color: var(--window-bg);
+	background-color: var(--main-window-bg);
 	overflow-y: auto;
 }
 
@@ -48,14 +48,14 @@
 	grid-row: span 1 / span 1;
 	grid-column: span 1 / span 1;
 	grid-row-start: 2;
-	background-color: var(--window-bg);
+	background-color: var(--main-window-bg);
 	overflow-x: hidden;
 }
 
 .btn {
 	border-radius: 0;
 	padding: .25rem;
-	background-color: var(--window-bg);
+	background-color: var(--main-window-bg);
 	color: var(--button-text);
 	box-shadow: -0.5px -0.5px 0 0.5px #c0c0c0, 0 0 0 1px #808080,
 		-0.5px -0.5px 0 1.5px #ffffff, 0 0 0 2px #0a0a0a;

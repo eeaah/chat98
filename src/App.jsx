@@ -15,7 +15,8 @@ import styles from "./App.module.css";
 
 const defaultTheme = {
 	"desktop-bg": "#FFB0E6",
-	"window-bg": "#E1D9CC",
+	"main-window-bg": "#E1D9CC",
+	"popout-window-bg": "#E1D9CC",
 	"text": "#000000",
 	"field-bg": "#ffffff",
 	"button-text": "#000000",
@@ -23,7 +24,7 @@ const defaultTheme = {
 	"accent-1": "#4f46e5",
 	"accent-2": "#818cf8",
 	"header-text": "#ffffff",
-};
+}
 
 function App() {
 	const [user] = useAuthState(auth);
@@ -67,10 +68,21 @@ function App() {
 		}
 	}, [user]);
 
-	Object.keys(defaultTheme).forEach((key) => {
-		const cssKey = '--' + key
-		document.documentElement.style.setProperty(cssKey, defaultTheme[key]);
-	});
+	useEffect(() => {
+		applyTheme();
+	}, [userDetails]);
+
+	const applyTheme = () => {
+		let theme = defaultTheme;
+		if (userDetails) {
+			theme = JSON.parse(userDetails.theme);
+			console.log(theme)
+		}
+		Object.keys(theme).forEach((key) => {
+			const cssKey = '--' + key
+			document.documentElement.style.setProperty(cssKey, theme[key]);
+		});
+	};
 
 	const handleViewDetails = async (uid) => {
 		try {

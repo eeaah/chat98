@@ -16,7 +16,7 @@
 	flex: none;
 	border-radius: 0;
 	padding: 0;
-	background-color: var(--eggshell);
+	background-color: var(--main-window-bg);
 	color: var(--button-text);
 	box-shadow: -0.5px -0.5px 0 0.5px #c0c0c0, 0 0 0 1px #808080,
 		-0.5px -0.5px 0 1.5px #ffffff, 0 0 0 2px #0a0a0a;

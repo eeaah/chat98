@@ -1,7 +1,7 @@
 .modal {
 	box-shadow: -0.5px -0.5px 0 0.5px #ffffff, 0 0 0 1px #808080,
 		-0.5px -0.5px 0 1.5px #dfdfdf, 0 0 0 2px #0a0a0a;
-	background-color: var(--window-bg);
+	background-color: var(--popout-window-bg);
 	padding: 0.25rem;
 	border: none;
 	width: 30rem;
@@ -10,7 +10,7 @@
 .modal__preferences {
 	box-shadow: -0.5px -0.5px 0 0.5px #ffffff, 0 0 0 1px #808080,
 		-0.5px -0.5px 0 1.5px #dfdfdf, 0 0 0 2px #0a0a0a;
-	background-color: var(--window-bg);
+	background-color: var(--popout-window-bg);
 	padding: 0.25rem;
 	border: none;
 }
@@ -43,7 +43,7 @@
 .btn {
 	border-radius: 0;
 	padding: 0.25rem;
-	background-color: var(--window-bg);
+	background-color: var(--popout-window-bg);
 	color: var(--button-text);
 	box-shadow: -0.5px -0.5px 0 0.5px #c0c0c0, 0 0 0 1px #808080,
 		-0.5px -0.5px 0 1.5px #ffffff, 0 0 0 2px #0a0a0a;
@@ -84,7 +84,7 @@
 .settings__input {
 	border: none;
 	padding: 0.25rem;
-	background-color: var(--window-bg);
+	background-color: var(--popout-window-bg);
 	color: var(--text);
 	box-shadow: inset -1px -1px #fff, inset 1px 1px grey,
 		inset -2px -2px #dfdfdf, inset 2px 2px #0a0a0a;
@@ -124,7 +124,7 @@
 
 .theme__grid {
 	display: grid;
-	grid-template-columns: 11rem 1fr 1rem;
+	grid-template-columns: 15rem 1fr 1rem;
 	margin: 1rem;
 	row-gap: .5rem;
 }
@@ -169,7 +169,7 @@
 	flex: none;
 	border-radius: 0;
 	padding: 0;
-	background-color: var(--window-bg);
+	background-color: var(--popout-window-bg);
 	color: var(--button-text);
 	box-shadow: -0.5px -0.5px 0 0.5px #c0c0c0, 0 0 0 1px #808080,
 		-0.5px -0.5px 0 1.5px #ffffff, 0 0 0 2px #0a0a0a;
@@ -222,7 +222,7 @@
 	flex: none;
 	border-radius: 0;
 	padding: 0;
-	background-color: var(--window-bg);
+	background-color: var(--popout-window-bg);
 	color: var(--button-text);
 	box-shadow: -0.5px -0.5px 0 0.5px #c0c0c0, 0 0 0 1px #808080,
 		-0.5px -0.5px 0 1.5px #ffffff, 0 0 0 2px #0a0a0a;
@@ -236,5 +236,5 @@
 	border: none;
 	padding: 0;
 	margin: 0;
-	background-color: var(--window-bg);
+	background-color: var(--popout-window-bg);
 }

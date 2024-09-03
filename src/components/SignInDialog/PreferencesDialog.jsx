@@ -2,27 +2,37 @@ import { useState, useEffect, useRef } from "react";
 import { db } from "../../firebase";
 import { doc, setDoc } from "firebase/firestore";
 import { IconX } from "@tabler/icons-react";
+import ThemeDisplay from "./ThemeDisplay";
 import styles from "./SignInDialog.module.css";
 
 function PreferencesDialog({ hideModal, user, userDetails, setUserDetails }) {
-	const dialogRef = useRef(null);
-	const [prefs, setPrefs] = useState({
+	const defaultTheme = {
 		"desktop-bg": "#FFB0E6",
-		"window-bg": "#E1D9CC",
+		"main-window-bg": "#E1D9CC",
+		"popout-window-bg": "#E1D9CC",
 		text: "#000000",
+		"button-text": "#000000",
 		"indicator-accent": "#3a3a3a",
 		"field-bg": "#ffffff",
-		"button-text": "#000000",
 		"accent-1": "#4f46e5",
 		"accent-2": "#818cf8",
 		"header-text": "#ffffff",
-	});
+	};
+	const dialogRef = useRef(null);
+	const [initialPrefs, setInitialPrefs] = useState(null);
+	const [prefs, setPrefs] = useState({ ...defaultTheme });
 
 	const handleColor = (event) => {
 		const { name, value } = event.target;
 		setPrefs((prev) => ({
 			...prev,
 			[name]: value,
+		}));
+		let updatedTheme = JSON.parse(userDetails["theme"]);
+		updatedTheme[name] = value;
+		setUserDetails((prev) => ({
+			...prev,
+			theme: JSON.stringify(updatedTheme),
 		}));
 	};
 
@@ -32,19 +42,28 @@ function PreferencesDialog({ hideModal, user, userDetails, setUserDetails }) {
 			if (!hexColorRegex.test(color[1])) return;
 		}
 		const theme = JSON.stringify(prefs);
-		console.log(theme);
 		const data = {
 			...userDetails,
-			theme: theme
+			theme: theme,
 		};
 		await setDoc(doc(db, "users", user.uid), data);
 		setUserDetails(data);
 		hideModal();
 	};
 
+	const handleCancel = () => {
+		setUserDetails((prev) => ({
+			...prev,
+			theme: JSON.stringify(initialPrefs),
+		}));
+		hideModal();
+	};
+
 	useEffect(() => {
 		try {
-			setPrefs(JSON.parse(userDetails.theme))
+			const prefs = JSON.parse(userDetails.theme);
+			setPrefs(prefs);
+			setInitialPrefs(prefs);
 		} catch (error) {
 			console.error(error);
 		}
@@ -58,11 +77,12 @@ function PreferencesDialog({ hideModal, user, userDetails, setUserDetails }) {
 					<p className={styles.nav__text}>Preferences</p>
 					<button
 						className={`${styles.nav__btn} ${styles.nav__btn_left}`}
-						onClick={hideModal}
+						onClick={handleCancel}
 					>
 						<IconX className={styles.nav__btn__icon} />
 					</button>
 				</div>
+				<ThemeDisplay theme={prefs} />
 				<div className={styles.theme__grid}>
 					<SettingsRow
 						label="Desktop background"
@@ -71,8 +91,14 @@ function PreferencesDialog({ hideModal, user, userDetails, setUserDetails }) {
 						handle={handleColor}
 					/>
 					<SettingsRow
-						label="Window background"
-						name="window-bg"
+						label="Main window background"
+						name="main-window-bg"
+						save={prefs}
+						handle={handleColor}
+					/>
+					<SettingsRow
+						label="Popout window background"
+						name="popout-window-bg"
 						save={prefs}
 						handle={handleColor}
 					/>
@@ -118,6 +144,12 @@ function PreferencesDialog({ hideModal, user, userDetails, setUserDetails }) {
 						save={prefs}
 						handle={handleColor}
 					/>
+					<p className={styles.win__txt}>Border style:</p>
+					<select className={`${styles.settings__input}`}>
+						<option value="classic">Classic</option>
+						<option value="light">Light</option>
+						<option value="dark">Dark</option>
+					</select>
 				</div>
 				<div className={styles.flex}>
 					<button
@@ -127,7 +159,7 @@ function PreferencesDialog({ hideModal, user, userDetails, setUserDetails }) {
 						Ok
 					</button>
 					<button
-						onClick={hideModal}
+						onClick={handleCancel}
 						className={`${styles.btn} ${styles.btn_cancel}`}
 					>
 						Cancel
