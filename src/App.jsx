@@ -3,6 +3,7 @@ import { auth, db } from "./firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { doc, setDoc, getDoc } from "firebase/firestore";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { themeList } from "./components/SignInDialog/themeList.js";
 import Navbar from "./components/Navbar/Navbar";
 import ChatBox from "./components/ChatBox/ChatBox";
 import MessageBox from "./components/MessageBox/MessageBox";
@@ -13,18 +14,7 @@ import ServerList from "./components/ServerList/ServerList";
 import UserDetails from "./components/UserDetails/UserDetails";
 import styles from "./App.module.css";
 
-const defaultTheme = {
-	"desktop-bg": "#FFB0E6",
-	"main-window-bg": "#E1D9CC",
-	"popout-window-bg": "#E1D9CC",
-	"text": "#000000",
-	"field-bg": "#ffffff",
-	"button-text": "#000000",
-	"indicator-accent": "#3a3a3a",
-	"accent-1": "#4f46e5",
-	"accent-2": "#818cf8",
-	"header-text": "#ffffff",
-}
+const defaultTheme = {...themeList.themes.default}
 
 function App() {
 	const [user] = useAuthState(auth);

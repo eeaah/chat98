@@ -238,3 +238,8 @@
 	margin: 0;
 	background-color: var(--popout-window-bg);
 }
+
+.theme_display {
+	margin-left: auto;
+	margin-right: auto;
+}

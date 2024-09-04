@@ -16,7 +16,7 @@ function ThemeDisplay({ theme }) {
 	return (
 		<p>
 			{order.map((key) => (
-				<span style={{ color: theme[key] }}>█</span>
+				<span style={{ color: theme[key] }} key={key}>█</span>
 			))}
 		</p>
 	);

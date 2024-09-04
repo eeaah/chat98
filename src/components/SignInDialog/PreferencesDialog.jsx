@@ -34,12 +34,37 @@ function PreferencesDialog({ hideModal, user, userDetails, setUserDetails }) {
 			...prev,
 			...borders,
 		}));
-	}
+		let updatedTheme = JSON.parse(userDetails["theme"]);
+		updatedTheme = {
+			...updatedTheme,
+			...borders,
+		};
+		setUserDetails((prev) => ({
+			...prev,
+			theme: JSON.stringify(updatedTheme),
+		}));
+	};
+
+	const handleThemeChange = (event) => {
+		const theme = JSON.parse(event.target.value);
+		setPrefs(theme);
+		changeBorder(theme["border-2"]);
+		setUserDetails((prev) => ({
+			...prev,
+			theme: event.target.value,
+		}));
+	};
 
 	const handleSubmit = async () => {
 		const hexColorRegex = /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/;
 		for (const color of Object.entries(prefs)) {
-			if (!hexColorRegex.test(color[1]) && color[1] != "rgba(0, 0, 0, 0)") return;
+			if (
+				!hexColorRegex.test(color[1]) &&
+				color[1] != "rgba(0, 0, 0, 0)"
+			) {
+				console.error(`Invalid color code: ${color}`);
+				return;
+			}
 		}
 		const theme = JSON.stringify(prefs);
 		const data = {
@@ -59,28 +84,32 @@ function PreferencesDialog({ hideModal, user, userDetails, setUserDetails }) {
 		hideModal();
 	};
 
+	const changeBorder = (val) => {
+		switch (val) {
+			case "#dfdfdf":
+				setCurrentBorder("classic");
+				break;
+			case "#363636":
+				setCurrentBorder("dark");
+				break;
+			case "#999999":
+				setCurrentBorder("med");
+				break;
+			case "#E5E5E5":
+				setCurrentBorder("light");
+				break;
+			case "rgba(0, 0, 0, 0)":
+				setCurrentBorder("none");
+				break;
+		}
+	};
+
 	useEffect(() => {
 		try {
 			const prefs = JSON.parse(userDetails.theme);
 			setPrefs(prefs);
 			setInitialPrefs(prefs);
-			switch (prefs["border-2"]) {
-				case "#dfdfdf":
-					setCurrentBorder("classic");
-					break;
-				case "#363636":
-					setCurrentBorder("dark");
-					break;
-				case "#999999":
-					setCurrentBorder("med");
-					break;
-				case "#E5E5E5":
-					setCurrentBorder("light");
-					break;
-				case "rgba(0, 0, 0, 0)":
-					setCurrentBorder("none");
-					break;
-			}
+			changeBorder(prefs["border-2"]);
 		} catch (error) {
 			console.error(error);
 		}
@@ -99,7 +128,21 @@ function PreferencesDialog({ hideModal, user, userDetails, setUserDetails }) {
 						<IconX className={styles.nav__btn__icon} />
 					</button>
 				</div>
-				<ThemeDisplay theme={prefs} />
+					<select
+						className={`${styles.settings__input}`}
+						onChange={handleThemeChange}
+					>
+						{Object.entries(themeList.themes).map(
+							([key, value]) => (
+								<option key={key} value={JSON.stringify(value)}>
+									{key}
+								</option>
+							)
+						)}
+					</select>
+				<div className={styles.theme_display}>
+					<ThemeDisplay theme={prefs} />
+				</div>
 				<div className={styles.theme__grid}>
 					<SettingsRow
 						label="Desktop background"
@@ -162,12 +205,18 @@ function PreferencesDialog({ hideModal, user, userDetails, setUserDetails }) {
 						handle={handleColor}
 					/>
 					<p className={styles.win__txt}>Border style:</p>
-					<select className={`${styles.settings__input}`} onChange={handleBorder} value={currentBorder}>
-						{Object.entries(themeList.borders).map(([key, value]) => (
-							<option key={key} value={key}>
-								{key.charAt(0).toUpperCase() + key.slice(1)}
-							</option>
-						))}
+					<select
+						className={`${styles.settings__input}`}
+						onChange={handleBorder}
+						value={currentBorder}
+					>
+						{Object.entries(themeList.borders).map(
+							([key, value]) => (
+								<option key={key} value={key}>
+									{key.charAt(0).toUpperCase() + key.slice(1)}
+								</option>
+							)
+						)}
 					</select>
 				</div>
 				<div className={styles.flex}>
