@@ -2,25 +2,16 @@ import { useState, useEffect, useRef } from "react";
 import { db } from "../../firebase";
 import { doc, setDoc } from "firebase/firestore";
 import { IconX } from "@tabler/icons-react";
+import { themeList } from "./themeList.js";
 import ThemeDisplay from "./ThemeDisplay";
 import styles from "./SignInDialog.module.css";
 
 function PreferencesDialog({ hideModal, user, userDetails, setUserDetails }) {
-	const defaultTheme = {
-		"desktop-bg": "#FFB0E6",
-		"main-window-bg": "#E1D9CC",
-		"popout-window-bg": "#E1D9CC",
-		text: "#000000",
-		"button-text": "#000000",
-		"indicator-accent": "#3a3a3a",
-		"field-bg": "#ffffff",
-		"accent-1": "#4f46e5",
-		"accent-2": "#818cf8",
-		"header-text": "#ffffff",
-	};
+	const defaultTheme = { ...themeList.default };
 	const dialogRef = useRef(null);
 	const [initialPrefs, setInitialPrefs] = useState(null);
 	const [prefs, setPrefs] = useState({ ...defaultTheme });
+	const [currentBorder, setCurrentBorder] = useState("classic");
 
 	const handleColor = (event) => {
 		const { name, value } = event.target;
@@ -36,10 +27,19 @@ function PreferencesDialog({ hideModal, user, userDetails, setUserDetails }) {
 		}));
 	};
 
+	const handleBorder = (event) => {
+		const borders = themeList.borders[event.target.value];
+		setCurrentBorder(event.target.value);
+		setPrefs((prev) => ({
+			...prev,
+			...borders,
+		}));
+	}
+
 	const handleSubmit = async () => {
 		const hexColorRegex = /^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$/;
 		for (const color of Object.entries(prefs)) {
-			if (!hexColorRegex.test(color[1])) return;
+			if (!hexColorRegex.test(color[1]) && color[1] != "rgba(0, 0, 0, 0)") return;
 		}
 		const theme = JSON.stringify(prefs);
 		const data = {
@@ -64,6 +64,23 @@ function PreferencesDialog({ hideModal, user, userDetails, setUserDetails }) {
 			const prefs = JSON.parse(userDetails.theme);
 			setPrefs(prefs);
 			setInitialPrefs(prefs);
+			switch (prefs["border-2"]) {
+				case "#dfdfdf":
+					setCurrentBorder("classic");
+					break;
+				case "#363636":
+					setCurrentBorder("dark");
+					break;
+				case "#999999":
+					setCurrentBorder("med");
+					break;
+				case "#E5E5E5":
+					setCurrentBorder("light");
+					break;
+				case "rgba(0, 0, 0, 0)":
+					setCurrentBorder("none");
+					break;
+			}
 		} catch (error) {
 			console.error(error);
 		}
@@ -115,7 +132,7 @@ function PreferencesDialog({ hideModal, user, userDetails, setUserDetails }) {
 						handle={handleColor}
 					/>
 					<SettingsRow
-						label="Indicator Accent"
+						label="Indicator accent"
 						name="indicator-accent"
 						save={prefs}
 						handle={handleColor}
@@ -145,10 +162,12 @@ function PreferencesDialog({ hideModal, user, userDetails, setUserDetails }) {
 						handle={handleColor}
 					/>
 					<p className={styles.win__txt}>Border style:</p>
-					<select className={`${styles.settings__input}`}>
-						<option value="classic">Classic</option>
-						<option value="light">Light</option>
-						<option value="dark">Dark</option>
+					<select className={`${styles.settings__input}`} onChange={handleBorder} value={currentBorder}>
+						{Object.entries(themeList.borders).map(([key, value]) => (
+							<option key={key} value={key}>
+								{key.charAt(0).toUpperCase() + key.slice(1)}
+							</option>
+						))}
 					</select>
 				</div>
 				<div className={styles.flex}>

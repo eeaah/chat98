@@ -18,15 +18,15 @@
 	padding: 0;
 	background-color: var(--main-window-bg);
 	color: var(--button-text);
-	box-shadow: -0.5px -0.5px 0 0.5px #c0c0c0, 0 0 0 1px #808080,
-		-0.5px -0.5px 0 1.5px #ffffff, 0 0 0 2px #0a0a0a;
+	box-shadow: -0.5px -0.5px 0 0.5px var(--border-3), 0 0 0 1px var(--border-5),
+		-0.5px -0.5px 0 1.5px var(--border-1), 0 0 0 2px var(--border-4);
 	margin: .125rem;
 	cursor: pointer;
 }
 
 .nav__btn:active {
-	box-shadow: -0.5px -0.5px 0 0.5px #808080, 0 0 0 1px #c0c0c0,
-		-0.5px -0.5px 0 1.5px #0a0a0a, 0 0 0 2px #ffffff;
+	box-shadow: -0.5px -0.5px 0 0.5px var(--border-5), 0 0 0 1px var(--border-3),
+		-0.5px -0.5px 0 1.5px var(--border-4), 0 0 0 2px var(--border-1);
 }
 
 .nav__btn:focus {

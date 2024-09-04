@@ -6,8 +6,8 @@
 	padding: 0.25rem;
 	background-color: var(--field-bg);
 	color: var(--text);
-	box-shadow: inset -1px -1px #fff, inset 1px 1px #808080,
-		inset -2px -2px #dfdfdf, inset 2px 2px #0a0a0a;
+	box-shadow: inset -1px -1px var(--border-1), inset 1px 1px var(--border-5),
+		inset -2px -2px var(--border-2), inset 2px 2px var(--border-4);
 	margin: 0.25rem;
 }
 

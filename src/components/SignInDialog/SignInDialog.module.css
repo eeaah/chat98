@@ -1,6 +1,6 @@
 .modal {
-	box-shadow: -0.5px -0.5px 0 0.5px #ffffff, 0 0 0 1px #808080,
-		-0.5px -0.5px 0 1.5px #dfdfdf, 0 0 0 2px #0a0a0a;
+	box-shadow: -0.5px -0.5px 0 0.5px var(--border-1), 0 0 0 1px var(--border-5),
+		-0.5px -0.5px 0 1.5px var(--border-2), 0 0 0 2px var(--border-4);
 	background-color: var(--popout-window-bg);
 	padding: 0.25rem;
 	border: none;
@@ -8,8 +8,8 @@
 }
 
 .modal__preferences {
-	box-shadow: -0.5px -0.5px 0 0.5px #ffffff, 0 0 0 1px #808080,
-		-0.5px -0.5px 0 1.5px #dfdfdf, 0 0 0 2px #0a0a0a;
+	box-shadow: -0.5px -0.5px 0 0.5px var(--border-1), 0 0 0 1px var(--border-5),
+		-0.5px -0.5px 0 1.5px var(--border-2), 0 0 0 2px var(--border-4);
 	background-color: var(--popout-window-bg);
 	padding: 0.25rem;
 	border: none;
@@ -45,15 +45,15 @@
 	padding: 0.25rem;
 	background-color: var(--popout-window-bg);
 	color: var(--button-text);
-	box-shadow: -0.5px -0.5px 0 0.5px #c0c0c0, 0 0 0 1px #808080,
-		-0.5px -0.5px 0 1.5px #ffffff, 0 0 0 2px #0a0a0a;
+	box-shadow: -0.5px -0.5px 0 0.5px var(--border-3), 0 0 0 1px var(--border-5),
+		-0.5px -0.5px 0 1.5px var(--border-1), 0 0 0 2px var(--border-4);
 	margin: 0.125rem;
 	cursor: pointer;
 }
 
 .btn:active {
-	box-shadow: -0.5px -0.5px 0 0.5px #808080, 0 0 0 1px #c0c0c0,
-		-0.5px -0.5px 0 1.5px #0a0a0a, 0 0 0 2px #ffffff;
+	box-shadow: -0.5px -0.5px 0 0.5px var(--border-5), 0 0 0 1px var(--border-3),
+		-0.5px -0.5px 0 1.5px var(--border-4), 0 0 0 2px var(--border-1);
 }
 
 .btn_ok {
@@ -86,8 +86,8 @@
 	padding: 0.25rem;
 	background-color: var(--popout-window-bg);
 	color: var(--text);
-	box-shadow: inset -1px -1px #fff, inset 1px 1px grey,
-		inset -2px -2px #dfdfdf, inset 2px 2px #0a0a0a;
+	box-shadow: inset -1px -1px var(--border-1), inset 1px 1px var(--border-5),
+		inset -2px -2px var(--border-2), inset 2px 2px var(--border-4);
 	margin: 0.125rem;
 }
 
@@ -106,8 +106,8 @@
 .settings__input__color_picker {
 	height: 1.25rem;
 	width: 2.5rem;
-	box-shadow: -0.5px -0.5px 0 0.5px #c0c0c0, 0 0 0 1px #808080,
-		-0.5px -0.5px 0 1.5px #ffffff, 0 0 0 2px #0a0a0a;
+	box-shadow: -0.5px -0.5px 0 0.5px var(--border-3), 0 0 0 1px var(--border-5),
+		-0.5px -0.5px 0 1.5px var(--border-1), 0 0 0 2px var(--border-4);
 }
 
 .win__txt_box {
@@ -171,15 +171,15 @@
 	padding: 0;
 	background-color: var(--popout-window-bg);
 	color: var(--button-text);
-	box-shadow: -0.5px -0.5px 0 0.5px #c0c0c0, 0 0 0 1px #808080,
-		-0.5px -0.5px 0 1.5px #ffffff, 0 0 0 2px #0a0a0a;
+	box-shadow: -0.5px -0.5px 0 0.5px var(--border-3), 0 0 0 1px var(--border-5),
+		-0.5px -0.5px 0 1.5px var(--border-1), 0 0 0 2px var(--border-4);
 	margin: 0.125rem;
 	cursor: pointer;
 }
 
 .nav__btn:active {
-	box-shadow: -0.5px -0.5px 0 0.5px #808080, 0 0 0 1px #c0c0c0,
-		-0.5px -0.5px 0 1.5px #0a0a0a, 0 0 0 2px #ffffff;
+	box-shadow: -0.5px -0.5px 0 0.5px var(--border-5), 0 0 0 1px var(--border-3),
+		-0.5px -0.5px 0 1.5px var(--border-4), 0 0 0 2px var(--border-1);
 }
 
 .nav__btn:focus {
@@ -224,8 +224,8 @@
 	padding: 0;
 	background-color: var(--popout-window-bg);
 	color: var(--button-text);
-	box-shadow: -0.5px -0.5px 0 0.5px #c0c0c0, 0 0 0 1px #808080,
-		-0.5px -0.5px 0 1.5px #ffffff, 0 0 0 2px #0a0a0a;
+	box-shadow: -0.5px -0.5px 0 0.5px var(--border-3), 0 0 0 1px var(--border-5),
+		-0.5px -0.5px 0 1.5px var(--border-1), 0 0 0 2px var(--border-4);
 	margin: .25rem;
 	cursor: pointer;
 }

@@ -22,11 +22,11 @@
 	flex-grow: 1;
 	height: calc(100vh - 2rem);
 	box-sizing: border-box;
-	padding: .25rem;
+	padding: 0.25rem;
 	background-color: var(--main-window-bg);
 	margin: 1rem;
-	box-shadow: -0.5px -0.5px 0 0.5px #ffffff, 0 0 0 1px #808080,
-		-0.5px -0.5px 0 1.5px #dfdfdf, 0 0 0 2px #0a0a0a;
+	box-shadow: -0.5px -0.5px 0 0.5px var(--border-1), 0 0 0 1px var(--border-5),
+		-0.5px -0.5px 0 1.5px var(--border-2), 0 0 0 2px var(--border-4);
 }
 
 .grid {
@@ -54,16 +54,16 @@
 
 .btn {
 	border-radius: 0;
-	padding: .25rem;
+	padding: 0.25rem;
 	background-color: var(--main-window-bg);
 	color: var(--button-text);
-	box-shadow: -0.5px -0.5px 0 0.5px #c0c0c0, 0 0 0 1px #808080,
-		-0.5px -0.5px 0 1.5px #ffffff, 0 0 0 2px #0a0a0a;
-	margin: .125rem;
+	box-shadow: -0.5px -0.5px 0 0.5px var(--border-3), 0 0 0 1px var(--border-5),
+		-0.5px -0.5px 0 1.5px var(--border-1), 0 0 0 2px var(--border-4);
+	margin: 0.125rem;
 	cursor: pointer;
 }
 
 .btn:active {
-	box-shadow: -0.5px -0.5px 0 0.5px #808080, 0 0 0 1px #c0c0c0,
-		-0.5px -0.5px 0 1.5px #0a0a0a, 0 0 0 2px #ffffff;
+	box-shadow: -0.5px -0.5px 0 0.5px var(--border-5), 0 0 0 1px var(--border-3),
+		-0.5px -0.5px 0 1.5px var(--border-4), 0 0 0 2px var(--border-1);
 }

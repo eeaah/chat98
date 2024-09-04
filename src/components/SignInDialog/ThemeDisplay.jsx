@@ -10,6 +10,7 @@ function ThemeDisplay({ theme }) {
 		"accent-1",
 		"accent-2",
 		"header-text",
+		"border-2",
 	];
 
 	return (
