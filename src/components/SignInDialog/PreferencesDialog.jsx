@@ -12,8 +12,10 @@ function PreferencesDialog({ hideModal, user, userDetails, setUserDetails }) {
 	const [initialPrefs, setInitialPrefs] = useState(null);
 	const [prefs, setPrefs] = useState({ ...defaultTheme });
 	const [currentBorder, setCurrentBorder] = useState("classic");
+	const [currentTheme, setCurrentTheme] = useState("default");
 
 	const handleColor = (event) => {
+		setCurrentTheme("custom");
 		const { name, value } = event.target;
 		setPrefs((prev) => ({
 			...prev,
@@ -28,6 +30,7 @@ function PreferencesDialog({ hideModal, user, userDetails, setUserDetails }) {
 	};
 
 	const handleBorder = (event) => {
+		setCurrentTheme("custom");
 		const borders = themeList.borders[event.target.value];
 		setCurrentBorder(event.target.value);
 		setPrefs((prev) => ({
@@ -46,12 +49,17 @@ function PreferencesDialog({ hideModal, user, userDetails, setUserDetails }) {
 	};
 
 	const handleThemeChange = (event) => {
-		const theme = JSON.parse(event.target.value);
+		if (event.target.value === "custom") {
+			setCurrentTheme("custom");
+			return;
+		}
+		const theme = themeList.themes[event.target.value];
+		setCurrentTheme(event.target.value);
 		setPrefs(theme);
 		changeBorder(theme["border-2"]);
 		setUserDetails((prev) => ({
 			...prev,
-			theme: event.target.value,
+			theme: JSON.stringify(theme),
 		}));
 	};
 
@@ -85,30 +93,32 @@ function PreferencesDialog({ hideModal, user, userDetails, setUserDetails }) {
 	};
 
 	const changeBorder = (val) => {
-		switch (val) {
-			case "#dfdfdf":
-				setCurrentBorder("classic");
-				break;
-			case "#363636":
-				setCurrentBorder("dark");
-				break;
-			case "#999999":
-				setCurrentBorder("med");
-				break;
-			case "#E5E5E5":
-				setCurrentBorder("light");
-				break;
-			case "rgba(0, 0, 0, 0)":
-				setCurrentBorder("none");
-				break;
-		}
+		Object.entries(themeList.borders).forEach((entry) => {
+			const [key, value] = entry;
+			if (val === value["border-2"]) {
+				setCurrentBorder(key);
+				return;
+			}
+		})
 	};
+
+	const findTheme = (prefs) => {
+		console.log("hi")
+		for (const [key, value] of Object.entries(themeList.themes)) {
+			if (prefs === JSON.stringify(value)) {
+				setCurrentTheme(key);
+				return;
+			}
+		}
+		setCurrentTheme("custom")
+	}
 
 	useEffect(() => {
 		try {
 			const prefs = JSON.parse(userDetails.theme);
 			setPrefs(prefs);
 			setInitialPrefs(prefs);
+			findTheme(userDetails.theme);
 			changeBorder(prefs["border-2"]);
 		} catch (error) {
 			console.error(error);
@@ -131,10 +141,11 @@ function PreferencesDialog({ hideModal, user, userDetails, setUserDetails }) {
 					<select
 						className={`${styles.settings__input}`}
 						onChange={handleThemeChange}
+						value={currentTheme}
 					>
 						{Object.entries(themeList.themes).map(
 							([key, value]) => (
-								<option key={key} value={JSON.stringify(value)}>
+								<option key={key} value={key}>
 									{key}
 								</option>
 							)
