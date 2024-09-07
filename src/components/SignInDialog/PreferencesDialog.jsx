@@ -9,7 +9,7 @@ import styles from "./SignInDialog.module.css";
 function PreferencesDialog({ hideModal, user, userDetails, setUserDetails }) {
 	const defaultTheme = { ...themeList.default };
 	const dialogRef = useRef(null);
-	const [initialPrefs, setInitialPrefs] = useState(null);
+	const [initialPrefs, setInitialPrefs] = useState({ ...defaultTheme });
 	const [prefs, setPrefs] = useState({ ...defaultTheme });
 	const [currentBorder, setCurrentBorder] = useState("classic");
 	const [currentTheme, setCurrentTheme] = useState("default");
@@ -99,7 +99,7 @@ function PreferencesDialog({ hideModal, user, userDetails, setUserDetails }) {
 				setCurrentBorder(key);
 				return;
 			}
-		})
+		});
 	};
 
 	const findTheme = (prefs) => {
@@ -109,8 +109,8 @@ function PreferencesDialog({ hideModal, user, userDetails, setUserDetails }) {
 				return;
 			}
 		}
-		setCurrentTheme("custom")
-	}
+		setCurrentTheme("custom");
+	};
 
 	useEffect(() => {
 		try {
@@ -137,19 +137,17 @@ function PreferencesDialog({ hideModal, user, userDetails, setUserDetails }) {
 						<IconX className={styles.nav__btn__icon} />
 					</button>
 				</div>
-					<select
-						className={`${styles.settings__input}`}
-						onChange={handleThemeChange}
-						value={currentTheme}
-					>
-						{Object.entries(themeList.themes).map(
-							([key, value]) => (
-								<option key={key} value={key}>
-									{key}
-								</option>
-							)
-						)}
-					</select>
+				<select
+					className={`${styles.settings__input}`}
+					onChange={handleThemeChange}
+					value={currentTheme}
+				>
+					{Object.entries(themeList.themes).map(([key, value]) => (
+						<option key={key} value={key}>
+							{key}
+						</option>
+					))}
+				</select>
 				<div className={styles.theme_display}>
 					<ThemeDisplay theme={prefs} />
 				</div>

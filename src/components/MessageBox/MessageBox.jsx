@@ -14,6 +14,7 @@ import {
 	IconHighlight,
 	IconTextColor,
 } from "@tabler/icons-react";
+import MessageText from "../Message/MessageText";
 import styles from "./MessageBox.module.css";
 
 const cache = new LRUCache({ max: 20 });
@@ -40,6 +41,12 @@ function MessageBox({ userDetails }) {
 		")",
 	]);
 	const [recentKaomoji, setRecentKaomoji] = useState([""]);
+	const [showPreview, setShowPreview] = useState(false);
+
+	const togglePreview = () => {
+		if (showPreview) setShowPreview(false);
+		else if (message.trim() !== "") setShowPreview(true);
+	};
 
 	const handleKaomojiTab = (event) => {
 		setKaomojiTab(Number(event.target.id));
@@ -47,10 +54,10 @@ function MessageBox({ userDetails }) {
 
 	const removeFormat = (text) => {
 		return text.replace(tagPattern, (match, tag, content) => {
-				return content;
+			return content;
 		});
 	};
-	
+
 	const handleFormBtn = (val) => {
 		const area = document.getElementById("messageInput");
 		const start = area.selectionStart;
@@ -61,12 +68,9 @@ function MessageBox({ userDetails }) {
 		if (val == "C" || val == "H")
 			setMessage(`${left}[${val}${color}]${mid}[/${val}]${right}`);
 		else if (val == "F") {
-			if (mid)
-				setMessage(`${left}${removeFormat(mid)}${right}`);
-			else
-				setMessage(removeFormat(message));
-		}
-		else setMessage(`${left}[${val}]${mid}[/${val}]${right}`);
+			if (mid) setMessage(`${left}${removeFormat(mid)}${right}`);
+			else setMessage(removeFormat(message));
+		} else setMessage(`${left}[${val}]${mid}[/${val}]${right}`);
 	};
 
 	const handleColor = (event) => {
@@ -92,6 +96,8 @@ function MessageBox({ userDetails }) {
 	};
 
 	const sendCurKaomoji = () => {
+		setShowPreview(false);
+		console.log(showPreview);
 		const cur = currentKaomoji.join("");
 		setMessage(message + cur);
 		handleRecent(cur);
@@ -110,6 +116,7 @@ function MessageBox({ userDetails }) {
 	};
 
 	const sendKaomoji = (text) => {
+		setShowPreview(false);
 		let newFace = null;
 		switch (kaomojiTab) {
 			case 0:
@@ -217,16 +224,23 @@ function MessageBox({ userDetails }) {
 						/>
 					</button>
 				</div>
-				<textarea
-					id="messageInput"
-					name="messageInput"
-					type="text"
-					maxLength="512"
-					value={message}
-					onChange={(e) => setMessage(e.target.value)}
-					onKeyDown={handleKeyDown}
-					className={styles.form__input}
-				></textarea>
+				{showPreview ? (
+					<div className={`${styles.form__input} ${styles.preview_box}`} onClick={togglePreview}>
+						{" "}
+						<MessageText message={message} />{" "}
+					</div>
+				) : (
+					<textarea
+						id="messageInput"
+						name="messageInput"
+						type="text"
+						maxLength="512"
+						value={message}
+						onChange={(e) => setMessage(e.target.value)}
+						onKeyDown={handleKeyDown}
+						className={styles.form__input}
+					></textarea>
+				)}
 			</div>
 			<div className={styles.flex}>
 				<button
@@ -236,7 +250,9 @@ function MessageBox({ userDetails }) {
 				>
 					Send
 				</button>
-				<button className={styles.btn}>Preview</button>
+				<button className={styles.btn} onClick={togglePreview}>
+					Preview
+				</button>
 				<button onClick={sendCurKaomoji} className={styles.btn}>
 					{currentKaomoji}
 				</button>

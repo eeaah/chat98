@@ -9,7 +9,7 @@ function Navbar({ toggleUserSettings, togglePreferences, user }) {
 
 	return (
 		<div className={styles.nav}>
-			<p className={styles.nav__text}>General - Messenger</p>
+			<p className={styles.nav__text}>General - Chat98</p>
 			<button className={`${styles.nav__btn} ${styles.nav__btn_left}`} onClick={togglePreferences}>
 				<IconDots className={styles.nav__btn__icon} />
 			</button>
