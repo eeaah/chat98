@@ -51,6 +51,23 @@ export const themeList = {
 			"popout-window-bg": "#363641",
 			text: "#ffffff",
 		},
+		"blue screen": {
+			"accent-1": "#182665",
+			"accent-2": "#0061f2",
+			"border-1": "#808794",
+			"border-2": "#636A72",
+			"border-3": "#697077",
+			"border-4": "#19202E",
+			"border-5": "#2B3549",
+			"button-text": "#000000",
+			"desktop-bg": "#003C94",
+			"field-bg": "#c7d1de",
+			"header-text": "#ffffff",
+			"indicator-accent": "#002d6f",
+			"main-window-bg": "#94a7c5",
+			"popout-window-bg": "#94a7c5",
+			text: "#000000",
+		},
 		"classic 98": {
 			"accent-1": "#000181",
 			"accent-2": "#1084D0",
@@ -77,11 +94,11 @@ export const themeList = {
 			"border-3": "#424242",
 			"border-4": "#191919",
 			"border-5": "#000000",
-			"button-text": "#FE8019",
+			"button-text": "#83A598",
 			"desktop-bg": "#1D2021",
 			"field-bg": "#32302F",
 			"header-text": "#1D2021",
-			"indicator-accent": "#83A598",
+			"indicator-accent": "#FE8019",
 			"main-window-bg": "#282828",
 			"popout-window-bg": "#282828",
 			text: "#EBDBB2",
@@ -102,7 +119,7 @@ export const themeList = {
 			"main-window-bg": "#4C5844",
 			"popout-window-bg": "#4C5844",
 			text: "#F6FFF1",
-			"window-bg": "#c9c0ed"
+			"window-bg": "#c9c0ed",
 		},
 		wumpus: {
 			"accent-1": "#202225",
@@ -139,7 +156,7 @@ export const themeList = {
 			"popout-window-bg": "#000000",
 			text: "#ffff00",
 		},
-		"custom": {}
+		custom: {},
 	},
 	borders: {
 		classic: {

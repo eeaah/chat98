@@ -26,6 +26,8 @@ const kaomojiButtons = [
 	{ id: 4, label: "Body" },
 ];
 
+const tagPattern = /\[([A-Z]+)(?:#[0-9A-Fa-f]{6})?\]([\s\S]*?)\[\/\1\]/gi;
+
 function MessageBox({ userDetails }) {
 	const [message, setMessage] = useState("");
 	const [kaomojiTab, setKaomojiTab] = useState(0);
@@ -43,6 +45,12 @@ function MessageBox({ userDetails }) {
 		setKaomojiTab(Number(event.target.id));
 	};
 
+	const removeFormat = (text) => {
+		return text.replace(tagPattern, (match, tag, content) => {
+				return content;
+		});
+	};
+	
 	const handleFormBtn = (val) => {
 		const area = document.getElementById("messageInput");
 		const start = area.selectionStart;
@@ -52,7 +60,12 @@ function MessageBox({ userDetails }) {
 		const right = message.slice(end);
 		if (val == "C" || val == "H")
 			setMessage(`${left}[${val}${color}]${mid}[/${val}]${right}`);
-		else if (val == "F") console.log("clear format");
+		else if (val == "F") {
+			if (mid)
+				setMessage(`${left}${removeFormat(mid)}${right}`);
+			else
+				setMessage(removeFormat(message));
+		}
 		else setMessage(`${left}[${val}]${mid}[/${val}]${right}`);
 	};
 
@@ -87,6 +100,13 @@ function MessageBox({ userDetails }) {
 	const handleRecent = (cur) => {
 		cache.set(cur, cur);
 		setRecentKaomoji([...cache.keys()]);
+	};
+
+	const handleKeyDown = (event) => {
+		if (event.key === "Enter") {
+			event.preventDefault();
+			sendMessage();
+		}
 	};
 
 	const sendKaomoji = (text) => {
@@ -204,6 +224,7 @@ function MessageBox({ userDetails }) {
 					maxLength="512"
 					value={message}
 					onChange={(e) => setMessage(e.target.value)}
+					onKeyDown={handleKeyDown}
 					className={styles.form__input}
 				></textarea>
 			</div>
@@ -237,7 +258,11 @@ function MessageBox({ userDetails }) {
 					</button>
 				))}
 			</div>
-			<div className={`${styles.kaomoji_field} ${kaomojiTab === 1 ? styles.kaomoji_field_recent : ''}`}>
+			<div
+				className={`${styles.kaomoji_field} ${
+					kaomojiTab === 1 ? styles.kaomoji_field_recent : ""
+				}`}
+			>
 				{kaomojiTab !== 1
 					? kaomojiList[kaomojiTab]?.map((text, index) => (
 							<KaomojiOption

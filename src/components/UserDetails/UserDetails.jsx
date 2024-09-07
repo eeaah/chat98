@@ -7,8 +7,8 @@ function UserDetails({ viewDetails }) {
 			<div className={styles.nav}>
 				<p className={styles.nav__text}>User Details</p>
 			</div>
-			<div className={styles.details_box}>
-			<p className={styles.txt_section}>Username</p>
+			{viewDetails ? <div className={styles.details_box}>
+				<p className={styles.txt_section}>Username</p>
 				<p className={styles.txt_user} style={{color: viewDetails?.nameColor}}>{viewDetails?.name}</p>
 				<p className={styles.txt_section}>About Me</p>
 				<p className={styles.txt_user}>
@@ -16,8 +16,9 @@ function UserDetails({ viewDetails }) {
 				</p>
 				<p className={styles.txt_section}>Join Date</p>
 				<p className={styles.txt_user}>{viewDetails?.joinDate?.split('T')[0]}</p>
+				<p className={styles.txt_section} style={{marginBottom: ".25rem"}}>Theme</p>
 				{viewDetails ? <ThemeDisplay theme={JSON.parse(viewDetails.theme)} /> : ""}
-			</div>
+			</div> : ""}
 		</div>
 	);
 }

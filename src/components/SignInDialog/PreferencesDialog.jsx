@@ -103,7 +103,6 @@ function PreferencesDialog({ hideModal, user, userDetails, setUserDetails }) {
 	};
 
 	const findTheme = (prefs) => {
-		console.log("hi")
 		for (const [key, value] of Object.entries(themeList.themes)) {
 			if (prefs === JSON.stringify(value)) {
 				setCurrentTheme(key);

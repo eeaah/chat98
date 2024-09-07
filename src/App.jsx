@@ -65,8 +65,7 @@ function App() {
 	const applyTheme = () => {
 		let theme = defaultTheme;
 		if (userDetails) {
-			theme = JSON.parse(userDetails.theme);
-			console.log(theme)
+		theme = JSON.parse(userDetails.theme);
 		}
 		Object.keys(theme).forEach((key) => {
 			const cssKey = '--' + key
