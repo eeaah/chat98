@@ -19,6 +19,7 @@ const defaultTheme = {...themeList.themes.default}
 function App() {
 	const [user] = useAuthState(auth);
 	const [userDetails, setUserDetails] = useState(null);
+	const [server, setServer] = useState("general");
 	const [userSettingsModal, setUserSettingsModal] = useState(false);
 	const [preferencesModal, setPreferencesModal] = useState(false);
 	const [viewDetails, setViewDetails] = useState(null);
@@ -106,13 +107,14 @@ function App() {
 					toggleUserSettings={toggleUserSettings}
 					togglePreferences={togglePreferences}
 					user={user}
+					server={server}
 				/>
 				<div className={styles.grid}>
 					<div className={styles.grid__chat}>
-						<ChatBox setDetails={handleViewDetails} />
+						<ChatBox setDetails={handleViewDetails} server={server} />
 					</div>
 					<div className={styles.grid__message_box}>
-						<MessageBox userDetails={userDetails} />
+						<MessageBox userDetails={userDetails} server={server} />
 					</div>
 				</div>
 				{!user ? (
@@ -142,7 +144,7 @@ function App() {
 				)}
 			</div>
 			<div className={styles.right_side}>
-				<ServerList />
+				<ServerList server={server} setServer={setServer}/>
 				<UserDetails viewDetails={viewDetails} />
 			</div>
 		</div>

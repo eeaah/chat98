@@ -29,7 +29,7 @@ const kaomojiButtons = [
 
 const tagPattern = /\[([A-Z]+)(?:#[0-9A-Fa-f]{6})?\]([\s\S]*?)\[\/\1\]/gi;
 
-function MessageBox({ userDetails }) {
+function MessageBox({ userDetails, server }) {
 	const [message, setMessage] = useState("");
 	const [kaomojiTab, setKaomojiTab] = useState(0);
 	const [color, setColor] = useState("#000000");
@@ -82,7 +82,7 @@ function MessageBox({ userDetails }) {
 			if (message.trim() == "") throw "Enter a valid message";
 			if (!userDetails) throw "User details not found";
 			const { uid } = auth.currentUser;
-			await addDoc(collection(db, "messages"), {
+			await addDoc(collection(db, server), {
 				text: message,
 				name: userDetails.name,
 				nameColor: userDetails.nameColor,

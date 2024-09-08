@@ -10,13 +10,13 @@ import { db, auth } from "../../firebase";
 import Message from "../Message/Message";
 import styles from "./ChatBox.module.css";
 
-function ChatBox({ setDetails }) {
+function ChatBox({ setDetails, server }) {
 	const chatWrapperRef = useRef(null);
 	const [messages, setMessages] = useState([]);
 
 	useEffect(() => {
 		const q = query(
-			collection(db, "messages"),
+			collection(db, server),
 			orderBy("createdAt", "desc"),
 			limit(50)
 		);
@@ -31,7 +31,7 @@ function ChatBox({ setDetails }) {
 			setMessages(sortedMessages);
 		});
 		return () => unsubscribe;
-	}, []);
+	}, [server]);
 
 	useEffect(() => {
 		if(!auth.currentUser)

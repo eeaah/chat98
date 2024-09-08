@@ -2,14 +2,14 @@ import { auth } from "../../firebase";
 import { IconX, IconUser, IconUserX, IconDots } from "@tabler/icons-react";
 import styles from "./Navbar.module.css";
 
-function Navbar({ toggleUserSettings, togglePreferences, user }) {
+function Navbar({ toggleUserSettings, togglePreferences, user, server}) {
 	const signOut = () => {
 		auth.signOut();
 	};
 
 	return (
 		<div className={styles.nav}>
-			<p className={styles.nav__text}>General - Chat98</p>
+			<p className={styles.nav__text}>{server[0].toUpperCase() + server.slice(1)} - Chat98</p>
 			<button className={`${styles.nav__btn} ${styles.nav__btn_left}`} onClick={togglePreferences}>
 				<IconDots className={styles.nav__btn__icon} />
 			</button>
