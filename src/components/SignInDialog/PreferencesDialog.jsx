@@ -129,7 +129,7 @@ function PreferencesDialog({ hideModal, user, userDetails, setUserDetails }) {
 		<dialog className={styles.modal__preferences} ref={dialogRef}>
 			<div className={styles.modal__flex}>
 				<div className={styles.nav}>
-					<p className={styles.nav__text}>Preferences</p>
+					<p className={styles.nav__text}>Edit Theme</p>
 					<button
 						className={`${styles.nav__btn} ${styles.nav__btn_left}`}
 						onClick={handleCancel}

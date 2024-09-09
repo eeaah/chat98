@@ -11,10 +11,10 @@
 .right_side {
 	display: flex;
 	flex-direction: column;
-	width: 22rem;
+	width: 18rem;
 	height: 100vh;
 	flex-grow: 0;
-	flex-shrink: 0.75;
+	flex-shrink: 0.65;
 }
 
 .window {

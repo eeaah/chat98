@@ -1,4 +1,3 @@
-import DOMPurify from 'dompurify';
 import MessageText from "./MessageText";
 import styles from "./Message.module.css";
 

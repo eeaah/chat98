@@ -1,4 +1,11 @@
 import DOMPurify from "dompurify";
+import {
+	RegExpMatcher,
+	TextCensor,
+	englishDataset,
+	englishRecommendedTransformers,
+	asteriskCensorStrategy,
+} from "obscenity";
 import styles from "./Message.module.css";
 
 const tagMap = {
@@ -31,11 +38,19 @@ function MessageText({ message }) {
 			}
 		);
 	};
+
 	const parsedText = DOMPurify.sanitize(formatText(message));
+	const matcher = new RegExpMatcher({
+		...englishDataset.build(),
+		...englishRecommendedTransformers,
+	});
+	const censor = new TextCensor().setStrategy(asteriskCensorStrategy());
+	const matches = matcher.getAllMatches(parsedText);
+	const cleanText = censor.applyTo(parsedText, matches);
 
 	return (
 		<div
-			dangerouslySetInnerHTML={{ __html: parsedText }}
+			dangerouslySetInnerHTML={{ __html: cleanText ? cleanText : "" }}
 			className={styles.msg__txt}
 		/>
 	);
