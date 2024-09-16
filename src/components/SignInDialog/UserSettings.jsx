@@ -27,7 +27,7 @@ function SignInDialog({ hideModal, user, userDetails, setUserDetails }) {
 			name: name,
 			aboutMe: aboutMe,
 			nameColor: color,
-			uid: user.uid
+			uid: user.uid,
 		};
 		await setDoc(doc(db, "users", user.uid), data);
 		setUserDetails(data);
@@ -87,6 +87,17 @@ function SignInDialog({ hideModal, user, userDetails, setUserDetails }) {
 							className={`${styles.settings__input} ${styles.settings__input__color_picker}`}
 						></input>
 					</div>
+					<p className={styles.win__txt}>Censor messages:</p>
+					{/* <div>
+						<input
+							className={styles.checkbox}
+							type="checkbox"
+							id="censoring"
+							name="censoring"
+							checked
+						/>
+						<span className={styles.checkbox__span}></span>
+					</div> */}
 				</div>
 				<div className={styles.flex}>
 					<button
